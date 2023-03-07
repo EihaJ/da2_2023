@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../components/component.dart';
+import '../components/appbar.dart';
+import '../components/herobanner.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -9,6 +10,13 @@ class HomePage extends StatelessWidget {
         child: Column(
           children: [
             appBar(),
+            SingleChildScrollView(
+              child: Column(
+                children: [
+                  HeroBanner(),
+                ],
+              ),
+            )
           ],
         ),
       ),
