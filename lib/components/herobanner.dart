@@ -44,19 +44,19 @@ class _HeroBannerState extends State<HeroBanner> {
             scrollDirection: Axis.horizontal,
             children: [
               Image.network(
-                'https://picsum.photos/seed/708/600',
+                'https://firebasestorage.googleapis.com/v0/b/da2-2023.appspot.com/o/HeroBanner%2FV23_Heritage_Liberty-01_RT_1400x.jpg?alt=media&token=95ea5cff-c6cd-4092-971f-9b0f1c65ca6f',
                 width: 300,
                 height: 100,
                 fit: BoxFit.cover,
               ),
               Image.network(
-                'https://picsum.photos/seed/984/600',
+                'https://firebasestorage.googleapis.com/v0/b/da2-2023.appspot.com/o/HeroBanner%2FCarbon-Stream-Sonos3_x1400.jpg?alt=media&token=171695b1-ec61-4fef-ac6e-5a01af71ef25',
                 width: 100,
                 height: 100,
                 fit: BoxFit.cover,
               ),
               Image.network(
-                'https://picsum.photos/seed/665/600',
+                'https://firebasestorage.googleapis.com/v0/b/da2-2023.appspot.com/o/HeroBanner%2FVPMS-1-ESP_20_1400x.jpg?alt=media&token=240c9b4b-e55f-47b9-a6a2-46b904b935d6',
                 width: 100,
                 height: 100,
                 fit: BoxFit.cover,
