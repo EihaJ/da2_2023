@@ -2,11 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class appBar extends StatefulWidget {
-  const appBar({super.key});
+class appBar extends StatefulWidget implements PreferredSizeWidget {
+
+
+  const appBar({Key? key}) : super(key: key);
 
   @override
-  State<appBar> createState() => _appBarState();
+  _appBarState createState() => _appBarState();
+
+  @override
+  Size get preferredSize => Size.fromHeight(72);
 }
 
 class _appBarState extends State<appBar> {

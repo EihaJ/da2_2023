@@ -25,9 +25,9 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Inter',
         textTheme: TextTheme(
           displayLarge: TextStyle(
-            fontSize: 48,
+            fontSize: 40,
             fontWeight: FontWeight.w300,
-            letterSpacing: 2.5,
+            letterSpacing: 1,
             color: Color(0xFF121212),
           ),
           displayMedium: TextStyle(
