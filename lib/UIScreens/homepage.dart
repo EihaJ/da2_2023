@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import '../components/CTAbutton.dart';
 import '../components/appbar.dart';
 import '../components/herobanner.dart';
 import '../components/productshowcase.dart';
+import '../components/categories.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -33,6 +35,9 @@ class HomePage extends StatelessWidget {
                   style: Theme.of(context).textTheme.displayLarge,
                 ),
               ),
+              Padding(padding: EdgeInsetsDirectional.all(10)),
+              MyStaggeredView(),
+                Padding(padding: EdgeInsetsDirectional.all(60)),
             ],
           ),
         ),
