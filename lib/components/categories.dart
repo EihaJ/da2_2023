@@ -1,67 +1,154 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-class MyStaggeredView extends StatelessWidget {
+class CategoriesItem extends StatefulWidget {
+  final String categoryName;
+  final String categoryImage;
+  final Function onTap;
+
+  CategoriesItem({
+    required this.categoryName,
+    required this.categoryImage,
+    required this.onTap,
+  });
+
+  @override
+  _CategoriesItemState createState() => _CategoriesItemState();
+}
+
+class _CategoriesItemState extends State<CategoriesItem> {
+  bool _isHovering = false;
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsetsDirectional.symmetric(horizontal: 80),
-      height: 500,
-
-      child: StaggeredGrid.count(
-        crossAxisCount: 4,
-        mainAxisSpacing: 4,
-        crossAxisSpacing: 4,
-        children: [
-          StaggeredGridTile.count(
-            crossAxisCellCount: 2,
-            mainAxisCellCount: 2,
-            child: CategoryButton('S.P.s'),
+    return Expanded(
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(12),
+        child: MouseRegion(
+          onHover: (event) {
+            setState(() {
+              _isHovering = true;
+            });
+          },
+          onExit: (event) {
+            setState(() {
+              _isHovering = false;
+            });
+          },
+          child: Container(
+            decoration: BoxDecoration(
+              border: Border.all(width: 0.5),
+            ),
+            height: 320,
+            child: Stack(
+              children: [
+                Positioned.fill(
+                  child: InkWell(
+                    onTap: () {
+                      widget.onTap();
+                    },
+                    child: FittedBox(
+                      alignment: Alignment.bottomCenter,
+                      fit: BoxFit.fitWidth,
+                      child: Image.network(widget.categoryImage),
+                    ),
+                  ),
+                ),
+                if (!_isHovering == true)
+                  Positioned.fill(
+                    child: Container(
+                      color: Theme.of(context).primaryColor.withOpacity(0.3),
+                    ),
+                  ),
+                Positioned(
+                  right: 0,
+                  bottom: 0,
+                  child: Container(
+                    height: 48,
+                    width: 240,
+                    decoration: BoxDecoration(
+                      color: _isHovering
+                          ? Colors.white
+                          : Theme.of(context).primaryColor.withOpacity(0.9),
+                      borderRadius: BorderRadius.only(
+                          bottomRight: Radius.circular(12),
+                          topLeft: Radius.circular(12)),
+                      border: Border.all(),
+                    ),
+                    child: Center(
+                      child: Text(
+                        widget.categoryName,
+                        style: _isHovering
+                            ? Theme.of(context).textTheme.titleMedium
+                            : Theme.of(context)
+                                .textTheme
+                                .titleMedium
+                                ?.copyWith(color: Colors.white, ),
+                       
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
-          StaggeredGridTile.count(
-            crossAxisCellCount: 2,
-            mainAxisCellCount: 1,
-            child: CategoryButton('L.P.s'),
-          ),
-          StaggeredGridTile.count(
-            crossAxisCellCount: 1,
-            mainAxisCellCount: 1,
-            child: CategoryButton('E.P.s'),
-          ),
-          StaggeredGridTile.count(
-            crossAxisCellCount: 1,
-            mainAxisCellCount: 1,
-         child: CategoryButton('CDs'),
-          ),
-        ],
+        ),
       ),
     );
   }
 }
 
-class CategoryButton extends StatelessWidget {
-  final String text;
+class CategoriesScreens extends StatefulWidget {
+  const CategoriesScreens({super.key});
 
-  CategoryButton(this.text);
+  @override
+  State<CategoriesScreens> createState() => _CategoriesScreensState();
+}
 
+class _CategoriesScreensState extends State<CategoriesScreens> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-
-        borderRadius: BorderRadius.circular(10),
-        color: Colors.blue,
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-        child: Text(
-          text,
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
+      padding: EdgeInsetsDirectional.symmetric(horizontal: 80),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              CategoriesItem(
+                  categoryName: "EP Records",
+                  categoryImage:
+                      "https://firebasestorage.googleapis.com/v0/b/da2-2023.appspot.com/o/Categories%2FE.P.jpg?alt=media&token=2f818485-eb50-4cd8-8965-da332358771d",
+                  onTap: () => {}),
+              SizedBox(
+                width: 16,
+              ),
+              CategoriesItem(
+                  categoryName: "LP Records",
+                  categoryImage:
+                      "https://firebasestorage.googleapis.com/v0/b/da2-2023.appspot.com/o/Categories%2FL.P.jpg?alt=media&token=b11c957d-8754-4590-9447-f8d20e002ef2",
+                  onTap: () => {}),
+            ],
           ),
-        ),
+          SizedBox(
+            height: 16,
+          ),
+          Row(
+            children: [
+              CategoriesItem(
+                  categoryName: "SP Records",
+                  categoryImage:
+                      "https://firebasestorage.googleapis.com/v0/b/da2-2023.appspot.com/o/Categories%2FS.P.jpg?alt=media&token=ccb870ea-75cf-4367-abdc-9de019d5a5b7",
+                  onTap: () => {}),
+              SizedBox(
+                width: 16,
+              ),
+              CategoriesItem(
+                  categoryName: "Compact Discs",
+                  categoryImage:
+                      "https://firebasestorage.googleapis.com/v0/b/da2-2023.appspot.com/o/Categories%2FCD2.jpg?alt=media&token=47b71db8-d747-4d7e-a73d-d61f92e3e18b",
+                  onTap: () => {})
+            ],
+          ),
+        ],
       ),
     );
   }
