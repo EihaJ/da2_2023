@@ -4,11 +4,13 @@ class CTAButton extends StatelessWidget {
   final VoidCallback onPressed;
   final String text;
   final ButtonType buttonType;
+  final ButtonWidth buttonWidth;
 
   CTAButton({
     required this.onPressed,
     required this.text,
     this.buttonType = ButtonType.primary,
+    this.buttonWidth = ButtonWidth.fixed,
   });
 
   @override
@@ -25,7 +27,7 @@ class CTAButton extends StatelessWidget {
       onTap: onPressed,
       child: Container(
         height: 48,
-        width: 320,
+        width: buttonWidth == ButtonWidth.fixed ? 320 : double.infinity,
         decoration: BoxDecoration(
           color: backgroundColor,
           border: Border.all(),
@@ -48,4 +50,9 @@ class CTAButton extends StatelessWidget {
 enum ButtonType {
   primary,
   secondary,
+}
+
+enum ButtonWidth {
+  fixed,
+  fill,
 }

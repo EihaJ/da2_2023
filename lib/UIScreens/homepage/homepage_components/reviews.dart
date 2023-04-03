@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'dart:async';
-import '../components/CTAbutton.dart';
+import '../../../general_components/CTAbutton.dart';
 
-class ProductShowcase extends StatefulWidget {
+class ReviewSection extends StatefulWidget {
   @override
-  _ProductShowcaseState createState() => _ProductShowcaseState();
+  _ReviewSectionState createState() => _ReviewSectionState();
 }
 
-class _ProductShowcaseState extends State<ProductShowcase> {
+class _ReviewSectionState extends State<ReviewSection> {
   late Timer _timer;
   final int _numPages = 6;
   final PageController _pageController = PageController(initialPage: 0);
@@ -55,7 +55,7 @@ class _ProductShowcaseState extends State<ProductShowcase> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 640,
+
       height: 480,
       child: Stack(
         children: [
@@ -75,14 +75,6 @@ class _ProductShowcaseState extends State<ProductShowcase> {
                       height: 400,
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 16),
-                    child: CTAButton(
-                      onPressed: () => print('item 1'),
-                      text: "BUY NOW",
-                      buttonType: ButtonType.secondary,
-                    ),
-                  ),
                 ],
               ),
               Stack(
@@ -97,14 +89,7 @@ class _ProductShowcaseState extends State<ProductShowcase> {
                       height: 400,
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 16),
-                    child: CTAButton(
-                      onPressed: () => print('item 1'),
-                      text: "BUY NOW",
-                      buttonType: ButtonType.secondary,
-                    ),
-                  ),
+               
                 ],
               ),
               Stack(

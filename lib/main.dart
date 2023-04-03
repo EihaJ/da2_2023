@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'UIScreens/homepage.dart';
+import 'UIScreens/homepage/homepage.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
@@ -59,6 +59,11 @@ class MyApp extends StatelessWidget {
             fontSize: 14,
             fontWeight: FontWeight.w400,
             color: Color(0xFF3D3D3D),
+          ),
+          bodySmall: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.w400,
+            color: Color(0xFF121212),
           ),
         ),
       ),

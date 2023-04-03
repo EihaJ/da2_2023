@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../UIScreens/homepage/homepage.dart';
+import '../UIScreens/authentication/login.dart';
+
 class appBar extends StatefulWidget implements PreferredSizeWidget {
-
-
   const appBar({Key? key}) : super(key: key);
 
   @override
@@ -148,7 +149,14 @@ class _CustomButtonRowState extends State<CustomButtonRow> {
         CustomButton(
           text: "Home",
           isClicked: _isClickedList[0],
-          onPressed: () => _onButtonPressed(0),
+          onPressed: () {
+            _onButtonPressed(0);
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (_) => HomePage(),
+              ),
+            );
+          },
         ),
         CustomButton(
           text: "Shop",
@@ -202,12 +210,19 @@ class _CustomIconButtonRowState extends State<CustomIconButtonRow> {
         ),
         //TODO: Nếu đã login thì hiển thị Ảnh đại diện cùng tên(First name only) người ta bên phải
         IconButton(
+          icon: Icon(Icons.login_outlined),
           padding: EdgeInsets.symmetric(horizontal: 16),
           iconSize: 26,
-          onPressed: () => print('Account'),
-          icon: Icon(Icons.login_outlined),
+          onPressed: () => Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (_) => LoginScreen(),
+            ),
+          ),
         ),
       ],
     );
   }
 }
+// Navigator.of(context).push(
+//               MaterialPageRoute(
+//                 builder: (_) => HomePage()
