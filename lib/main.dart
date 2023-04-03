@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
-import 'UIScreens/homepage/homepage.dart';
+
 import 'package:firebase_core/firebase_core.dart';
+
+import 'src/utilities/theme.dart';
+
+import 'src/features/homepage/screens/homepage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,56 +21,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-        useMaterial3: true,
-        backgroundColor: Color(0xFFFFFFFF),
-        primaryColor: Color(0xFF121212),
-        hoverColor: Color(0xFFF5F5F5),
-        fontFamily: 'Inter',
-        textTheme: TextTheme(
-          displayLarge: TextStyle(
-            fontSize: 40,
-            fontWeight: FontWeight.w300,
-            letterSpacing: 1,
-            color: Color(0xFF121212),
-          ),
-          displayMedium: TextStyle(
-            fontSize: 30,
-            fontWeight: FontWeight.w400,
-            color: Color(0xFF3D3D3D),
-          ),
-          displaySmall: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.w300,
-            color: Color(0xFF121212),
-          ),
-          titleLarge: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w500,
-            color: Color(0xFF121212),
-          ),
-          titleMedium: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
-            color: Color(0xFF3D3D3D),
-          ),
-          bodyLarge: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w400,
-            color: Color(0xFF121212),
-          ),
-          bodyMedium: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w400,
-            color: Color(0xFF3D3D3D),
-          ),
-          bodySmall: TextStyle(
-            fontSize: 12,
-            fontWeight: FontWeight.w400,
-            color: Color(0xFF121212),
-          ),
-        ),
-      ),
+      theme: WebTheme.lightTheme,
       home: HomePage(),
     );
   }
