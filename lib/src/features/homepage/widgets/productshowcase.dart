@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'dart:async';
-import '../../../common_widgets/CTAbutton.dart';
+import '../../../common_widgets/cta_button.dart';
 
 class ProductShowcase extends StatefulWidget {
   @override

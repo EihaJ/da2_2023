@@ -1,7 +1,12 @@
+// ignore_for_file: prefer_const_constructors
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../../constants/image_strings.dart';
-import '../../../../common_widgets/CTAbutton.dart';
+import '../../../../constants/colors.dart';
+
+import '../../../../common_widgets/text_field.dart';
+import '../../../../common_widgets/cta_button.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -9,8 +14,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  String? _email;
-  String? _password;
+  late String _email;
+  late String _password;
 
   @override
   Widget build(BuildContext context) {
@@ -32,30 +37,52 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 650,
                 width: 500,
                 child: Padding(
+                  // ignore: prefer_const_constructors
                   padding: EdgeInsets.symmetric(
                     horizontal: 40.0,
-                    vertical: 80.0,
+                    vertical: 72.0,
                   ),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       //BackToHomepage
                       InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          Get.offAndToNamed("/");
+                        },
                         child: Row(
-                          children: [Icon(Icons.arrow_back_outlined)],
+                          // ignore: prefer_const_literals_to_create_immutables
+                          children: [
+                            Icon(
+                              Icons.arrow_back_outlined,
+                              color: PrimaryColor2,
+                              size: 18,
+                            ),
+                            SizedBox(width: 5),
+                            Text(
+                              'Homepage',
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: PrimaryColor2,
+                              ),
+                            )
+                          ],
                         ),
                       ),
-      
+                      const SizedBox(
+                        height: 48,
+                      ),
                       //Title
                       Text(
                         'LOGIN',
-                        style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                            color: Color(0xFFF5F5F5),
-                            fontWeight: FontWeight.w500),
+                        style: Theme.of(context)
+                            .textTheme
+                            .displayLarge
+                            ?.copyWith(
+                                color: Color(0xFFF5F5F5),
+                                fontWeight: FontWeight.w500),
                       ),
-      
+
                       SizedBox(
                         height: 10,
                       ),
@@ -69,78 +96,92 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ?.copyWith(color: Colors.white),
                           ),
                           TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Get.toNamed('/sign_up');
+                            },
                             child: Text(
                               'Register Here',
-                              style:
-                                  Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w500,
-                                        fontStyle: FontStyle.italic,
-                                        decoration: TextDecoration.underline,
-                                        decorationColor: Colors.white,
-                                      ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge
+                                  ?.copyWith(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w500,
+                                    fontStyle: FontStyle.italic,
+                                    decoration: TextDecoration.underline,
+                                    decorationColor: Colors.white,
+                                  ),
                             ),
-                          )
+                          ),
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 40,
                       ),
-                      TextFormField(
-                        style: TextStyle(color: Colors.white),
-                        decoration: InputDecoration(
-                          labelText: 'Email',
-                          labelStyle: TextStyle(color: Colors.white),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white),
-                          ),
-                        ),
+                      CustomTextField(
                         onChanged: (value) => setState(() => _email = value),
+                        labelText: 'Email',
+                        textFieldType: TextFieldType.white,
+                        textFieldWidth: TextFieldWidth.fill,
                       ),
-                      SizedBox(height: 20.0),
-                      TextFormField(
-                        style: TextStyle(color: Colors.white),
-                        // ignore: prefer_const_constructors
-                        decoration: InputDecoration(
-                          labelText: 'Password',
-                          labelStyle: TextStyle(color: Colors.white),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white),
-                          ),
-                        ),
-                        obscureText: true,
+
+                      const SizedBox(height: 20.0),
+                      CustomTextField(
                         onChanged: (value) => setState(() => _password = value),
+                        labelText: 'Password',
+                        textFieldType: TextFieldType.white,
+                        textFieldWidth: TextFieldWidth.fill,
+                        obscureText: true,
                       ),
-                      SizedBox(height: 5.0),
+                      const SizedBox(height: 5.0),
                       TextButton(
-                        onPressed: () {},
+                        //Connect to Forgot Password
+                        onPressed: () {
+                          Get.toNamed('/forgot_password');
+                        },
                         child: Text(
                           'Forgot Password?',
-                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w500,
-                                fontStyle: FontStyle.italic,
-                                decoration: TextDecoration.underline,
-                                decorationColor: Colors.white,
-                              ),
+                          style:
+                              Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w500,
+                                    fontStyle: FontStyle.italic,
+                                    decoration: TextDecoration.underline,
+                                    decorationColor: Colors.white,
+                                  ),
                         ),
                       ),
-                      SizedBox(height: 40.0),
+                      const SizedBox(height: 40.0),
                       CTAButton(
                         onPressed: () {
                           print('login success');
                         },
-                        text: "Login",
+                        text: "LOGIN",
                         buttonType: ButtonType.secondary,
                         buttonWidth: ButtonWidth.fill,
-                      )
+                      ),
+                      const SizedBox(height: 8.0),
+                      InkResponse(
+                        splashColor: Colors.transparent,
+                        enableFeedback: false,
+
+                        //Log in using google
+                        onTap: () {},
+                        child: Container(
+                          height: 48,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            color: PrimaryColor2,
+                            border: Border.all(),
+                          ),
+                          child: Center(
+                              child: Image.asset(
+                            google_logo,
+                            height: 24,
+                            width: 24,
+                          )),
+                        ),
+                      ),
                     ],
                   ),
                 ),

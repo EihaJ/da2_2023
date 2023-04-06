@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 
 import 'src/utilities/theme.dart';
+import 'src/routing/routing.dart';
 
 import 'src/features/homepage/screens/homepage.dart';
+import 'src/features/authentication/screens/log_in/login.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,9 +23,11 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       theme: WebTheme.lightTheme,
-      home: HomePage(),
+      defaultTransition: Transition.fadeIn,
+      initialRoute: "/",
+      getPages: AppRoutes.pages,
     );
   }
 }

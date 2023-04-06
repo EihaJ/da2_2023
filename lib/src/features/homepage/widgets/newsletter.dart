@@ -1,4 +1,4 @@
-import '../../../common_widgets/CTAbutton.dart';
+import '../../../common_widgets/cta_button.dart';
 
 import 'package:flutter/material.dart';
 import 'package:chewie/chewie.dart';
