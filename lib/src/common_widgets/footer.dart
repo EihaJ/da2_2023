@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../constants/image_strings.dart';
+import '../constants/colors.dart';
+
 class WebsiteFooter extends StatefulWidget {
   @override
   _WebsiteFooterState createState() => _WebsiteFooterState();
@@ -11,14 +14,14 @@ class _WebsiteFooterState extends State<WebsiteFooter> {
     return Container(
       padding: EdgeInsetsDirectional.fromSTEB(40, 0, 80, 0),
       height: 120,
-      color: Theme.of(context).primaryColor,
+      color: PrimaryColor1,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           AspectRatio(
-              aspectRatio: 1.5,
-              child: Image.network(
-                  'https://firebasestorage.googleapis.com/v0/b/da2-2023.appspot.com/o/WebAssets%2FLogoWhite.png?alt=media&token=e659ad2b-57e8-421c-ba7c-f745c3f012be')),
+            aspectRatio: 1.5,
+            child: Image.asset(logo_white),
+          ),
           Row(
             children: [
               InkWell(
@@ -61,7 +64,6 @@ class _WebsiteFooterState extends State<WebsiteFooter> {
               ),
             ],
           ),
-
           Padding(
             padding: const EdgeInsets.only(left: 88),
             child: Text(

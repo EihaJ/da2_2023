@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../features/homepage/screens/homepage.dart';
-import '../features/authentication/screens/log_in/login.dart';
+import '../constants/image_strings.dart';
+import '../constants/colors.dart';
+
+import '../features/search/screens/search.dart';
+import '../features/search/models/search_controller.dart';
 
 class appBar extends StatefulWidget implements PreferredSizeWidget {
   const appBar({Key? key}) : super(key: key);
@@ -26,7 +31,7 @@ class _appBarState extends State<appBar> {
         color: Theme.of(context).canvasColor,
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: PrimaryColor1.withOpacity(0.1),
             blurRadius: 8,
             offset: Offset(0, 4),
           ),
@@ -41,11 +46,14 @@ class _appBarState extends State<appBar> {
             Container(
               width: 100,
               height: 50,
-              child: Image.network(
-                'https://firebasestorage.googleapis.com/v0/b/da2-2023.appspot.com/o/WebAssets%2FLogo.png?alt=media&token=af5c3bc5-05f1-42d5-9800-7e4865752c55',
-                width: 240,
-                height: 100,
-                fit: BoxFit.cover,
+              child: InkResponse(
+                child: Image.asset(
+                  logo_black,
+                  width: 240,
+                  height: 100,
+                  fit: BoxFit.cover,
+                ),
+                onTap: () => Get.toNamed("/"),
               ),
             ),
             CustomButtonRow(),
@@ -151,17 +159,16 @@ class _CustomButtonRowState extends State<CustomButtonRow> {
           isClicked: _isClickedList[0],
           onPressed: () {
             _onButtonPressed(0);
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (_) => HomePage(),
-              ),
-            );
+            Get.toNamed("/");
           },
         ),
         CustomButton(
           text: "Shop",
           isClicked: _isClickedList[1],
-          onPressed: () => _onButtonPressed(1),
+          onPressed: () {
+            _onButtonPressed(1);
+            Get.toNamed("/shop");
+          },
         ),
         CustomButton(
           text: "Event",
@@ -184,8 +191,6 @@ class _CustomButtonRowState extends State<CustomButtonRow> {
 }
 
 class CustomIconButtonRow extends StatefulWidget {
-  const CustomIconButtonRow({super.key});
-
   @override
   State<CustomIconButtonRow> createState() => _CustomIconButtonRowState();
 }
@@ -199,7 +204,10 @@ class _CustomIconButtonRowState extends State<CustomIconButtonRow> {
         IconButton(
           padding: EdgeInsets.fromLTRB(16, 4, 16, 0),
           iconSize: 26,
-          onPressed: () => print('Search'),
+          onPressed: () {
+            print('search');
+            Get.dialog(SearchScreen());
+          },
           icon: Icon(Icons.search_outlined),
         ),
         IconButton(
@@ -213,16 +221,9 @@ class _CustomIconButtonRowState extends State<CustomIconButtonRow> {
           icon: Icon(Icons.login_outlined),
           padding: EdgeInsets.symmetric(horizontal: 16),
           iconSize: 26,
-          onPressed: () => Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (_) => LoginScreen(),
-            ),
-          ),
+          onPressed: () => Get.toNamed("/login"),
         ),
       ],
     );
   }
 }
-// Navigator.of(context).push(
-//               MaterialPageRoute(
-//                 builder: (_) => HomePage()
