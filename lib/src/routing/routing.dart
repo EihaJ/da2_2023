@@ -48,10 +48,11 @@ class AppRoutes {
       page: () => NewProfileScreen(),
     ),
 
-    //SEARCH
+    //SHOP
     GetPage(
-      name: '/search',
-      page: () => SearchScreen(),
+      name: '/shop',
+      page: () => ShopScreen(GlobalKey<ScaffoldState>()),
     ),
+    // Get.toNamed('/shop', arguments: GlobalKey<ScaffoldState>());
   ];
 }

@@ -11,9 +11,12 @@ import '../widgets/reviews.dart';
 
 class HomePage extends StatelessWidget {
   @override
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBar(),
+      key: _scaffoldKey,
+      endDrawer: Drawer(),
+      appBar: appBar(scaffoldKey: _scaffoldKey,),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(

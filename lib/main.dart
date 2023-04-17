@@ -28,6 +28,7 @@ class MyApp extends StatelessWidget {
       defaultTransition: Transition.fadeIn,
       initialRoute: "/",
       getPages: AppRoutes.pages,
+      
     );
   }
 }

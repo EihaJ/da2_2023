@@ -8,11 +8,14 @@ import '../constants/image_strings.dart';
 import '../constants/colors.dart';
 
 import '../features/search/screens/search.dart';
-import '../features/search/models/search_controller.dart';
+
+import '../features/cart/screens/cart.dart';
 
 class appBar extends StatefulWidget implements PreferredSizeWidget {
-  const appBar({Key? key}) : super(key: key);
-
+  final GlobalKey<ScaffoldState> scaffoldKey;
+  appBar({
+    required this.scaffoldKey,
+  });
   @override
   _appBarState createState() => _appBarState();
 
@@ -57,7 +60,7 @@ class _appBarState extends State<appBar> {
               ),
             ),
             CustomButtonRow(),
-            CustomIconButtonRow(),
+            CustomIconButtonRow(scaffoldKey: widget.scaffoldKey),
           ],
         ),
       ),
@@ -192,6 +195,10 @@ class _CustomButtonRowState extends State<CustomButtonRow> {
 
 class CustomIconButtonRow extends StatefulWidget {
   @override
+  final GlobalKey<ScaffoldState> scaffoldKey;
+  CustomIconButtonRow({
+    required this.scaffoldKey,
+  });
   State<CustomIconButtonRow> createState() => _CustomIconButtonRowState();
 }
 
@@ -213,7 +220,10 @@ class _CustomIconButtonRowState extends State<CustomIconButtonRow> {
         IconButton(
           padding: EdgeInsets.symmetric(horizontal: 16),
           iconSize: 26,
-          onPressed: () => print('Cart'),
+          onPressed: () {
+            widget.scaffoldKey.currentState?.openEndDrawer();
+            print('Open Cart');
+          },
           icon: Icon(Icons.shopping_bag_outlined),
         ),
         //TODO: Nếu đã login thì hiển thị Ảnh đại diện cùng tên(First name only) người ta bên phải
