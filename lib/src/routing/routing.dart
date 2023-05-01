@@ -7,6 +7,10 @@ import '../features/search/screens/search.dart';
 
 import '../features/shop/screens/shop.dart';
 
+import '../features/about_us/screens/about_us.dart';
+
+import '../features/blogs/screens/blog.dart';
+
 import '../features/authentication/screens/log_in/login.dart';
 import '../features/authentication/screens/sign_up/sign_up.dart';
 import '../features/authentication/screens/forgot_password/forgot_password.dart';
@@ -54,5 +58,17 @@ class AppRoutes {
       page: () => ShopScreen(GlobalKey<ScaffoldState>()),
     ),
     // Get.toNamed('/shop', arguments: GlobalKey<ScaffoldState>());
+
+    //ABOUT US
+    GetPage(
+      name: '/about_us',
+      page: () => AboutUsScreen(GlobalKey<ScaffoldState>()),
+    ),
+
+    //BLOG
+    GetPage(
+      name: '/blog',
+      page: () => BlogScreen(GlobalKey<ScaffoldState>()),
+    ),
   ];
 }

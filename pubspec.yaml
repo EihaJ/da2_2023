@@ -102,7 +102,10 @@ flutter:
   assets:
       - assets/images/auth_page/
       - assets/images/default_avatar/
+      - assets/images/about_us_page/
+      - assets/images/blog/
       - assets/logos/
+      - assets/contents/
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

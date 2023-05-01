@@ -157,6 +157,7 @@ class _CustomButtonRowState extends State<CustomButtonRow> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        //Homepage Button
         CustomButton(
           text: "Home",
           isClicked: _isClickedList[0],
@@ -165,6 +166,8 @@ class _CustomButtonRowState extends State<CustomButtonRow> {
             Get.toNamed("/");
           },
         ),
+
+        //Shop Button
         CustomButton(
           text: "Shop",
           isClicked: _isClickedList[1],
@@ -173,20 +176,31 @@ class _CustomButtonRowState extends State<CustomButtonRow> {
             Get.toNamed("/shop");
           },
         ),
+
+        //Event Button
         CustomButton(
           text: "Event",
           isClicked: _isClickedList[2],
           onPressed: () => _onButtonPressed(2),
         ),
+
+        //Blog Button
         CustomButton(
-          text: "Blog",
-          isClicked: _isClickedList[3],
-          onPressed: () => _onButtonPressed(3),
-        ),
+            text: "Blog",
+            isClicked: _isClickedList[3],
+            onPressed: () {
+              _onButtonPressed(3);
+              Get.toNamed('/blog');
+            }),
+
+        //About Us Button
         CustomButton(
           text: "About Us",
           isClicked: _isClickedList[4],
-          onPressed: () => _onButtonPressed(4),
+          onPressed: () {
+            _onButtonPressed(4);
+            Get.toNamed("/about_us");
+          },
         ),
       ],
     );

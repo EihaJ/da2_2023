@@ -17,3 +17,9 @@ const String avt3 = 'assets/images/default_avatar/avt3.png';
 const String avt4 = 'assets/images/default_avatar/avt4.png';
 const String avt5 = 'assets/images/default_avatar/avt5.png';
 
+//ABOUT US
+const String about_us = 'images/about_us_page/about_us.jpg';
+
+//BLOGS
+const String blog_1 = 'assets/images/blog/blog_1.jpg';
+const String blog_2 = 'assets/images/blog/blog_2.jpg';
