@@ -5,13 +5,22 @@ class CTAButton extends StatelessWidget {
   final String text;
   final ButtonType buttonType;
   final ButtonWidth buttonWidth;
+  final LeadIcon leadIcon;
+  final Icon leadIconName;
+  final TailIcon tailIcon;
+  final Icon tailIconName;
 
   CTAButton({
     required this.onPressed,
     required this.text,
     this.buttonType = ButtonType.primary,
     this.buttonWidth = ButtonWidth.fixed,
-  });
+    this.leadIcon = LeadIcon.hide,
+    this.leadIconName = const Icon(Icons.abc),
+    this.tailIcon = TailIcon.hide,
+    this.tailIconName = const Icon(Icons.person),
+  })  : assert(validLeadIcons.contains(leadIcon)),
+        assert(validTailIcons.contains(tailIcon));
 
   @override
   Widget build(BuildContext context) {
@@ -33,13 +42,26 @@ class CTAButton extends StatelessWidget {
           border: Border.all(),
         ),
         child: Center(
-          child: Text(
-            text,
-            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  color: buttonType == ButtonType.primary
-                      ? Colors.white
-                      : Colors.black,
-                ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              if (leadIcon == LeadIcon.show) leadIconName,
+              const SizedBox(
+                width: 8,
+              ),
+              Text(
+                text,
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                      color: buttonType == ButtonType.primary
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+              ),
+              const SizedBox(
+                width: 8,
+              ),
+              if (tailIcon == TailIcon.show) tailIconName,
+            ],
           ),
         ),
       ),
@@ -56,3 +78,17 @@ enum ButtonWidth {
   fixed,
   fill,
 }
+
+enum LeadIcon {
+  hide,
+  show,
+}
+
+const List<LeadIcon> validLeadIcons = const [LeadIcon.hide, LeadIcon.show];
+
+enum TailIcon {
+  hide,
+  show,
+}
+
+const List<TailIcon> validTailIcons = const [TailIcon.hide, TailIcon.show];

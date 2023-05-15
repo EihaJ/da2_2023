@@ -177,13 +177,6 @@ class _CustomButtonRowState extends State<CustomButtonRow> {
           },
         ),
 
-        //Event Button
-        CustomButton(
-          text: "Event",
-          isClicked: _isClickedList[2],
-          onPressed: () => _onButtonPressed(2),
-        ),
-
         //Blog Button
         CustomButton(
             text: "Blog",

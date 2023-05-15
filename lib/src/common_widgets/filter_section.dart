@@ -51,7 +51,8 @@ class FilterCheckboxListWidget extends StatefulWidget {
   });
 
   @override
-  _FilterCheckboxListWidgetState createState() => _FilterCheckboxListWidgetState();
+  _FilterCheckboxListWidgetState createState() =>
+      _FilterCheckboxListWidgetState();
 }
 
 class _FilterCheckboxListWidgetState extends State<FilterCheckboxListWidget> {
@@ -65,20 +66,36 @@ class _FilterCheckboxListWidgetState extends State<FilterCheckboxListWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: widget.options.length,
-      itemBuilder: (BuildContext context, int index) {
-        return FilterCheckboxWidget(
-          label: widget.options[index],
-          isChecked: values[index],
-          onChanged: (bool? value) {
-            setState(() {
-              values[index] = value!;
-            });
-            widget.onChanged(values);
-          },
-        );
-      },
+    return  Column(
+        children: [
+          SizedBox(height: 16),
+          Text(
+            'Filters List 1',
+            style: Theme.of(context).textTheme.headlineMedium,
+          ),
+          SizedBox(height: 8),
+          Container(
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: widget.options.length,
+              itemBuilder: (BuildContext context, int index) {
+                return FilterCheckboxWidget(
+                  label: widget.options[index],
+                  isChecked: values[index],
+                  onChanged: (bool? value) {
+                    setState(
+                      () {
+                        values[index] = value!;
+                      },
+                    );
+                    widget.onChanged(values);
+                  },
+                );
+              },
+            ),
+          ),
+        ],
+  
     );
   }
 }
