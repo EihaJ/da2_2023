@@ -6,9 +6,7 @@ import 'package:flutter/material.dart';
 import '../widget/blog_card.dart';
 
 class BlogScreen extends StatefulWidget {
-  final GlobalKey<ScaffoldState> scaffoldKey;
-
-  BlogScreen(this.scaffoldKey);
+  BlogScreen();
 
   @override
   _BlogScreenState createState() => _BlogScreenState();
@@ -35,7 +33,7 @@ class _BlogScreenState extends State<BlogScreen> {
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id nisi a justo volutpat consequat eu eu tellus. Vestibulum rhoncus lacus ut diam tempor, ut consectetur nisi hendrerit. Phasellus sit amet dui metus. Sed maximus malesuada erat, eu consequat mauris aliquet ut. Sed sit amet odio in massa convallis bibendum. Morbi nec enim vel mauris rutrum pharetra. Donec et nunc libero. Nam vel quam eget metus dapibus fermentum. Proin tincidunt tempor est id rhoncus. Sed sem nulla, ullamcorper eu nisl non, fermentum aliquam eros.',
       link: '',
     ),
-      BlogPost(
+    BlogPost(
       title: 'How to Build a Flutter App',
       author: 'John Doe',
       date: 'April 22, 2023',
@@ -52,7 +50,8 @@ class _BlogScreenState extends State<BlogScreen> {
       content:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id nisi a justo volutpat consequat eu eu tellus. Vestibulum rhoncus lacus ut diam tempor, ut consectetur nisi hendrerit. Phasellus sit amet dui metus. Sed maximus malesuada erat, eu consequat mauris aliquet ut. Sed sit amet odio in massa convallis bibendum. Morbi nec enim vel mauris rutrum pharetra. Donec et nunc libero. Nam vel quam eget metus dapibus fermentum. Proin tincidunt tempor est id rhoncus. Sed sem nulla, ullamcorper eu nisl non, fermentum aliquam eros.',
       link: '',
-    ),  BlogPost(
+    ),
+    BlogPost(
       title: 'How to Build a Flutter App',
       author: 'John Doe',
       date: 'April 22, 2023',
@@ -69,7 +68,8 @@ class _BlogScreenState extends State<BlogScreen> {
       content:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id nisi a justo volutpat consequat eu eu tellus. Vestibulum rhoncus lacus ut diam tempor, ut consectetur nisi hendrerit. Phasellus sit amet dui metus. Sed maximus malesuada erat, eu consequat mauris aliquet ut. Sed sit amet odio in massa convallis bibendum. Morbi nec enim vel mauris rutrum pharetra. Donec et nunc libero. Nam vel quam eget metus dapibus fermentum. Proin tincidunt tempor est id rhoncus. Sed sem nulla, ullamcorper eu nisl non, fermentum aliquam eros.',
       link: '',
-    ),  BlogPost(
+    ),
+    BlogPost(
       title: 'How to Build a Flutter App',
       author: 'John Doe',
       date: 'April 22, 2023',
@@ -86,7 +86,8 @@ class _BlogScreenState extends State<BlogScreen> {
       content:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id nisi a justo volutpat consequat eu eu tellus. Vestibulum rhoncus lacus ut diam tempor, ut consectetur nisi hendrerit. Phasellus sit amet dui metus. Sed maximus malesuada erat, eu consequat mauris aliquet ut. Sed sit amet odio in massa convallis bibendum. Morbi nec enim vel mauris rutrum pharetra. Donec et nunc libero. Nam vel quam eget metus dapibus fermentum. Proin tincidunt tempor est id rhoncus. Sed sem nulla, ullamcorper eu nisl non, fermentum aliquam eros.',
       link: '',
-    ),  BlogPost(
+    ),
+    BlogPost(
       title: 'How to Build a Flutter App',
       author: 'John Doe',
       date: 'April 22, 2023',
@@ -103,7 +104,8 @@ class _BlogScreenState extends State<BlogScreen> {
       content:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id nisi a justo volutpat consequat eu eu tellus. Vestibulum rhoncus lacus ut diam tempor, ut consectetur nisi hendrerit. Phasellus sit amet dui metus. Sed maximus malesuada erat, eu consequat mauris aliquet ut. Sed sit amet odio in massa convallis bibendum. Morbi nec enim vel mauris rutrum pharetra. Donec et nunc libero. Nam vel quam eget metus dapibus fermentum. Proin tincidunt tempor est id rhoncus. Sed sem nulla, ullamcorper eu nisl non, fermentum aliquam eros.',
       link: '',
-    ),  BlogPost(
+    ),
+    BlogPost(
       title: 'How to Build a Flutter App',
       author: 'John Doe',
       date: 'April 22, 2023',
@@ -120,7 +122,8 @@ class _BlogScreenState extends State<BlogScreen> {
       content:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id nisi a justo volutpat consequat eu eu tellus. Vestibulum rhoncus lacus ut diam tempor, ut consectetur nisi hendrerit. Phasellus sit amet dui metus. Sed maximus malesuada erat, eu consequat mauris aliquet ut. Sed sit amet odio in massa convallis bibendum. Morbi nec enim vel mauris rutrum pharetra. Donec et nunc libero. Nam vel quam eget metus dapibus fermentum. Proin tincidunt tempor est id rhoncus. Sed sem nulla, ullamcorper eu nisl non, fermentum aliquam eros.',
       link: '',
-    ),  BlogPost(
+    ),
+    BlogPost(
       title: 'How to Build a Flutter App',
       author: 'John Doe',
       date: 'April 22, 2023',
@@ -137,7 +140,8 @@ class _BlogScreenState extends State<BlogScreen> {
       content:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id nisi a justo volutpat consequat eu eu tellus. Vestibulum rhoncus lacus ut diam tempor, ut consectetur nisi hendrerit. Phasellus sit amet dui metus. Sed maximus malesuada erat, eu consequat mauris aliquet ut. Sed sit amet odio in massa convallis bibendum. Morbi nec enim vel mauris rutrum pharetra. Donec et nunc libero. Nam vel quam eget metus dapibus fermentum. Proin tincidunt tempor est id rhoncus. Sed sem nulla, ullamcorper eu nisl non, fermentum aliquam eros.',
       link: '',
-    ),  BlogPost(
+    ),
+    BlogPost(
       title: 'How to Build a Flutter App',
       author: 'John Doe',
       date: 'April 22, 2023',
@@ -154,7 +158,8 @@ class _BlogScreenState extends State<BlogScreen> {
       content:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id nisi a justo volutpat consequat eu eu tellus. Vestibulum rhoncus lacus ut diam tempor, ut consectetur nisi hendrerit. Phasellus sit amet dui metus. Sed maximus malesuada erat, eu consequat mauris aliquet ut. Sed sit amet odio in massa convallis bibendum. Morbi nec enim vel mauris rutrum pharetra. Donec et nunc libero. Nam vel quam eget metus dapibus fermentum. Proin tincidunt tempor est id rhoncus. Sed sem nulla, ullamcorper eu nisl non, fermentum aliquam eros.',
       link: '',
-    ),  BlogPost(
+    ),
+    BlogPost(
       title: 'How to Build a Flutter App',
       author: 'John Doe',
       date: 'April 22, 2023',
@@ -213,55 +218,52 @@ class _BlogScreenState extends State<BlogScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: appBar(scaffoldKey: widget.scaffoldKey),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 80),
-        child: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 40),
+      child: GridView.builder(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 3,
             crossAxisSpacing: 8,
             mainAxisSpacing: 8,
-          ),
-          itemCount: _blogPosts.length <= _postCount
-              ? _blogPosts.length
-              : _postCount + 2, // Add 1 for the "Load More" button
-          itemBuilder: (BuildContext context, int index) {
-            if (index < _postCount) {
-              // Display the blog post
-              return BlogCard(
-                blogPost: _blogPosts[index],
-              );
-            } else {
-              if (index == _postCount)
+            childAspectRatio: 1.2),
+        itemCount: _blogPosts.length <= _postCount
+            ? _blogPosts.length
+            : _postCount + 2, // Add 1 for the "Load More" button
+        itemBuilder: (BuildContext context, int index) {
+          if (index < _postCount) {
+            // Display the blog post
+            return BlogCard(
+              blogPost: _blogPosts[index],
+            );
+          } else {
+            if (index == _postCount)
+              return Container();
+            else {
+              // Display the "Load More" button
+              if (_blogPosts.length <= _postCount) {
+                // There are no more blog posts to show
                 return Container();
-              else {
-                // Display the "Load More" button
-                if (_blogPosts.length <= _postCount) {
-                  // There are no more blog posts to show
-                  return Container();
-                } else {
-                  return Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      CTAButton(
-                        text: 'Load More',
-                        onPressed: () {
-                          setState(
-                            () {
-                              _postCount +=
-                                  6; // Increase the number of blog posts to display by 3
-                            },
-                          );
-                        },
-                      ),
-                    ],
-                  );
-                }
+              } else {
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    CTAButton(
+                      text: 'Load More',
+                      onPressed: () {
+                        setState(
+                          () {
+                            _postCount +=
+                                6; // Increase the number of blog posts to display by 3
+                          },
+                        );
+                      },
+                    ),
+                  ],
+                );
               }
             }
-          },
-        ),
+          }
+        },
       ),
     );
   }

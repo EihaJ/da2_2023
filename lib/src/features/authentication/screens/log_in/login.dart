@@ -20,7 +20,8 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
+      appBar: null, // Hide the appBar in LoginScreen
+      body:  SafeArea(
         child: Stack(
           children: [
             Image.asset(

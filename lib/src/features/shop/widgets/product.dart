@@ -1,5 +1,6 @@
 import 'package:da22023/src/common_widgets/cta_button.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ProductCard extends StatelessWidget {
   final String productName;
@@ -23,6 +24,18 @@ class ProductCard extends StatelessWidget {
     return InkWell(
       onTap: () {
         // Handle the tap event here
+        Get.toNamed(
+          '/product_detail',
+          arguments: {
+            'productName': productName,
+            'brand': brand,
+            'price': price,
+            'description': description,
+            'image': image,
+            'link': link,
+        
+          },
+        );
         print('Product tapped: $productName');
       },
       child: Container(

@@ -9,8 +9,8 @@ import '../../../common_widgets/footer.dart';
 import '../../../features/search/screens/search.dart';
 
 class ShopScreen extends StatefulWidget {
-  final GlobalKey<ScaffoldState> scaffoldKey;
-  ShopScreen(this.scaffoldKey);
+ 
+  ShopScreen();
 
   @override
   _ShopScreenState createState() => _ShopScreenState();
@@ -288,13 +288,7 @@ class _ShopScreenState extends State<ShopScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: widget.scaffoldKey,
-      endDrawer: Drawer(),
-      appBar: appBar(
-        scaffoldKey: widget.scaffoldKey,
-      ),
-      body: Padding(
+    return  Padding(
         padding: const EdgeInsets.only(top: 40),
         child: Column(
           children: [
@@ -389,7 +383,7 @@ class _ShopScreenState extends State<ShopScreen> {
             // WebsiteFooter(),
           ],
         ),
-      ),
+     
     );
   }
 }

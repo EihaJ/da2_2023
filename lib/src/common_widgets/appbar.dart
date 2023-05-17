@@ -9,13 +9,12 @@ import '../constants/colors.dart';
 
 import '../features/search/screens/search.dart';
 
+import '../features/cart/controllers/cart_controller.dart';
 import '../features/cart/screens/cart.dart';
 
 class appBar extends StatefulWidget implements PreferredSizeWidget {
-  final GlobalKey<ScaffoldState> scaffoldKey;
-  appBar({
-    required this.scaffoldKey,
-  });
+  final CartController cartController;
+  appBar(this.cartController);
   @override
   _appBarState createState() => _appBarState();
 
@@ -60,7 +59,9 @@ class _appBarState extends State<appBar> {
               ),
             ),
             CustomButtonRow(),
-            CustomIconButtonRow(scaffoldKey: widget.scaffoldKey),
+            CustomIconButtonRow(
+              cartController: widget.cartController,
+            ),
           ],
         ),
       ),
@@ -200,16 +201,10 @@ class _CustomButtonRowState extends State<CustomButtonRow> {
   }
 }
 
-class CustomIconButtonRow extends StatefulWidget {
-  @override
-  final GlobalKey<ScaffoldState> scaffoldKey;
-  CustomIconButtonRow({
-    required this.scaffoldKey,
-  });
-  State<CustomIconButtonRow> createState() => _CustomIconButtonRowState();
-}
+class CustomIconButtonRow extends StatelessWidget {
+  final CartController cartController;
 
-class _CustomIconButtonRowState extends State<CustomIconButtonRow> {
+  CustomIconButtonRow({required this.cartController});
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -228,12 +223,11 @@ class _CustomIconButtonRowState extends State<CustomIconButtonRow> {
           padding: EdgeInsets.symmetric(horizontal: 16),
           iconSize: 26,
           onPressed: () {
-            widget.scaffoldKey.currentState?.openEndDrawer();
-            print('Open Cart');
+             cartController.toggleCartDrawer();
+            print('cart open');
           },
           icon: Icon(Icons.shopping_bag_outlined),
         ),
-        //TODO: Nếu đã login thì hiển thị Ảnh đại diện cùng tên(First name only) người ta bên phải
         IconButton(
           icon: Icon(Icons.login_outlined),
           padding: EdgeInsets.symmetric(horizontal: 16),

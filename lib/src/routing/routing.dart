@@ -6,6 +6,7 @@ import '../features/homepage/screens/homepage.dart';
 import '../features/search/screens/search.dart';
 
 import '../features/shop/screens/shop.dart';
+import '../features/shop/screens/product_detail.dart';
 
 import '../features/about_us/screens/about_us.dart';
 
@@ -55,20 +56,27 @@ class AppRoutes {
     //SHOP
     GetPage(
       name: '/shop',
-      page: () => ShopScreen(GlobalKey<ScaffoldState>()),
+      page: () => ShopScreen(),
     ),
     // Get.toNamed('/shop', arguments: GlobalKey<ScaffoldState>());
+
+     GetPage(
+  name: '/product_detail',
+  page: () => ProductDetailScreen(),
+),
 
     //ABOUT US
     GetPage(
       name: '/about_us',
-      page: () => AboutUsScreen(GlobalKey<ScaffoldState>()),
+      page: () => AboutUsScreen(),
     ),
 
     //BLOG
     GetPage(
       name: '/blog',
-      page: () => BlogScreen(GlobalKey<ScaffoldState>()),
+      page: () => BlogScreen(),
     ),
+
+   
   ];
 }
