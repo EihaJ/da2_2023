@@ -6,7 +6,7 @@ import '../features/homepage/screens/homepage.dart';
 import '../features/search/screens/search.dart';
 
 import '../features/shop/screens/shop.dart';
-import '../features/shop/screens/product_detail.dart';
+import '../features/shop/screens/product_detail.dart' ;
 
 import '../features/about_us/screens/about_us.dart';
 
@@ -60,10 +60,10 @@ class AppRoutes {
     ),
     // Get.toNamed('/shop', arguments: GlobalKey<ScaffoldState>());
 
-     GetPage(
-  name: '/product_detail',
-  page: () => ProductDetailScreen(),
-),
+    GetPage(
+      name: '/product_detail',
+      page: () => ProductDetailScreen(),
+    ),
 
     //ABOUT US
     GetPage(
@@ -76,7 +76,5 @@ class AppRoutes {
       name: '/blog',
       page: () => BlogScreen(),
     ),
-
-   
   ];
 }

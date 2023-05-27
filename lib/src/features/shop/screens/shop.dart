@@ -1,10 +1,12 @@
-import 'package:da22023/src/features/shop/widgets/product.dart';
+import 'package:da22023/src/features/shop/widgets/product_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../common_widgets/appbar.dart';
 import '../../../common_widgets/cta_button.dart';
 import '../../../common_widgets/footer.dart';
+
+import '../../../common_models/product.dart';
 
 import '../../../features/search/screens/search.dart';
 
@@ -18,242 +20,34 @@ class ShopScreen extends StatefulWidget {
 
 class _ShopScreenState extends State<ShopScreen> {
   int _postCount = 6; // Initial number of product cards to display
-  final List<ProductCard> _products = [
-    ProductCard(
+  final List<Product> _products = [
+    Product(
+      version: 'EPs',
+      id: '1',
       productName: 'Product 1',
       brand: 'Brand A',
       price: 10.00,
       description: 'Product 1 description goes here.',
-      image:
+      mainImage:
           'https://firebasestorage.googleapis.com/v0/b/da2-2023.appspot.com/o/ProductImages%2F3580186_large.jpg?alt=media&token=c7e970e3-ace3-430a-8625-27c3cf67a940',
-      link: '',
+      artist: '',
+      tags: [],
+    
     ),
-    ProductCard(
+    Product(
+      version: 'LPs',
+      id: '2',
       productName: 'Product 2',
       brand: 'Brand B',
       price: 20.50,
       description: 'Product 2 description goes here.',
-      image:
+      mainImage:
           'https://firebasestorage.googleapis.com/v0/b/da2-2023.appspot.com/o/ProductImages%2F3734754_01a0b0cb-593a-4218-9c41-6ef22898569d_large.jpg?alt=media&token=eb948a3d-734a-4589-b5e5-e40f0ab7a18e',
-      link: '',
+      artist: '',
+      tags: [],
+    
     ),
-    ProductCard(
-      productName: 'Product 1',
-      brand: 'Brand A',
-      price: 10.00,
-      description: 'Product 1 description goes here.',
-      image:
-          'https://firebasestorage.googleapis.com/v0/b/da2-2023.appspot.com/o/ProductImages%2F3580186_large.jpg?alt=media&token=c7e970e3-ace3-430a-8625-27c3cf67a940',
-      link: '',
-    ),
-    ProductCard(
-      productName: 'Product 2',
-      brand: 'Brand B',
-      price: 20.50,
-      description: 'Product 2 description goes here.',
-      image:
-          'https://firebasestorage.googleapis.com/v0/b/da2-2023.appspot.com/o/ProductImages%2F3734754_01a0b0cb-593a-4218-9c41-6ef22898569d_large.jpg?alt=media&token=eb948a3d-734a-4589-b5e5-e40f0ab7a18e',
-      link: '',
-    ),
-    ProductCard(
-      productName: 'Product 1',
-      brand: 'Brand A',
-      price: 10.00,
-      description: 'Product 1 description goes here.',
-      image:
-          'https://firebasestorage.googleapis.com/v0/b/da2-2023.appspot.com/o/ProductImages%2F3580186_large.jpg?alt=media&token=c7e970e3-ace3-430a-8625-27c3cf67a940',
-      link: '',
-    ),
-    ProductCard(
-      productName: 'Product 2',
-      brand: 'Brand B',
-      price: 20.50,
-      description: 'Product 2 description goes here.',
-      image:
-          'https://firebasestorage.googleapis.com/v0/b/da2-2023.appspot.com/o/ProductImages%2F3734754_01a0b0cb-593a-4218-9c41-6ef22898569d_large.jpg?alt=media&token=eb948a3d-734a-4589-b5e5-e40f0ab7a18e',
-      link: '',
-    ),
-    ProductCard(
-      productName: 'Product 1',
-      brand: 'Brand A',
-      price: 10.00,
-      description: 'Product 1 description goes here.',
-      image:
-          'https://firebasestorage.googleapis.com/v0/b/da2-2023.appspot.com/o/ProductImages%2F3580186_large.jpg?alt=media&token=c7e970e3-ace3-430a-8625-27c3cf67a940',
-      link: '',
-    ),
-    ProductCard(
-      productName: 'Product 2',
-      brand: 'Brand B',
-      price: 20.50,
-      description: 'Product 2 description goes here.',
-      image:
-          'https://firebasestorage.googleapis.com/v0/b/da2-2023.appspot.com/o/ProductImages%2F3734754_01a0b0cb-593a-4218-9c41-6ef22898569d_large.jpg?alt=media&token=eb948a3d-734a-4589-b5e5-e40f0ab7a18e',
-      link: '',
-    ),
-    ProductCard(
-      productName: 'Product 1',
-      brand: 'Brand A',
-      price: 10.00,
-      description: 'Product 1 description goes here.',
-      image:
-          'https://firebasestorage.googleapis.com/v0/b/da2-2023.appspot.com/o/ProductImages%2F3580186_large.jpg?alt=media&token=c7e970e3-ace3-430a-8625-27c3cf67a940',
-      link: '',
-    ),
-    ProductCard(
-      productName: 'Product 2',
-      brand: 'Brand B',
-      price: 20.50,
-      description: 'Product 2 description goes here.',
-      image:
-          'https://firebasestorage.googleapis.com/v0/b/da2-2023.appspot.com/o/ProductImages%2F3734754_01a0b0cb-593a-4218-9c41-6ef22898569d_large.jpg?alt=media&token=eb948a3d-734a-4589-b5e5-e40f0ab7a18e',
-      link: '',
-    ),
-    ProductCard(
-      productName: 'Product 1',
-      brand: 'Brand A',
-      price: 10.00,
-      description: 'Product 1 description goes here.',
-      image:
-          'https://firebasestorage.googleapis.com/v0/b/da2-2023.appspot.com/o/ProductImages%2F3580186_large.jpg?alt=media&token=c7e970e3-ace3-430a-8625-27c3cf67a940',
-      link: '',
-    ),
-    ProductCard(
-      productName: 'Product 2',
-      brand: 'Brand B',
-      price: 20.50,
-      description: 'Product 2 description goes here.',
-      image:
-          'https://firebasestorage.googleapis.com/v0/b/da2-2023.appspot.com/o/ProductImages%2F3734754_01a0b0cb-593a-4218-9c41-6ef22898569d_large.jpg?alt=media&token=eb948a3d-734a-4589-b5e5-e40f0ab7a18e',
-      link: '',
-    ),
-    ProductCard(
-      productName: 'Product 1',
-      brand: 'Brand A',
-      price: 10.00,
-      description: 'Product 1 description goes here.',
-      image:
-          'https://firebasestorage.googleapis.com/v0/b/da2-2023.appspot.com/o/ProductImages%2F3580186_large.jpg?alt=media&token=c7e970e3-ace3-430a-8625-27c3cf67a940',
-      link: '',
-    ),
-    ProductCard(
-      productName: 'Product 2',
-      brand: 'Brand B',
-      price: 20.50,
-      description: 'Product 2 description goes here.',
-      image:
-          'https://firebasestorage.googleapis.com/v0/b/da2-2023.appspot.com/o/ProductImages%2F3734754_01a0b0cb-593a-4218-9c41-6ef22898569d_large.jpg?alt=media&token=eb948a3d-734a-4589-b5e5-e40f0ab7a18e',
-      link: '',
-    ),
-    ProductCard(
-      productName: 'Product 1',
-      brand: 'Brand A',
-      price: 10.00,
-      description: 'Product 1 description goes here.',
-      image:
-          'https://firebasestorage.googleapis.com/v0/b/da2-2023.appspot.com/o/ProductImages%2F3580186_large.jpg?alt=media&token=c7e970e3-ace3-430a-8625-27c3cf67a940',
-      link: '',
-    ),
-    ProductCard(
-      productName: 'Product 2',
-      brand: 'Brand B',
-      price: 20.50,
-      description: 'Product 2 description goes here.',
-      image:
-          'https://firebasestorage.googleapis.com/v0/b/da2-2023.appspot.com/o/ProductImages%2F3734754_01a0b0cb-593a-4218-9c41-6ef22898569d_large.jpg?alt=media&token=eb948a3d-734a-4589-b5e5-e40f0ab7a18e',
-      link: '',
-    ),
-    ProductCard(
-      productName: 'Product 1',
-      brand: 'Brand A',
-      price: 10.00,
-      description: 'Product 1 description goes here.',
-      image:
-          'https://firebasestorage.googleapis.com/v0/b/da2-2023.appspot.com/o/ProductImages%2F3580186_large.jpg?alt=media&token=c7e970e3-ace3-430a-8625-27c3cf67a940',
-      link: '',
-    ),
-    ProductCard(
-      productName: 'Product 2',
-      brand: 'Brand B',
-      price: 20.50,
-      description: 'Product 2 description goes here.',
-      image:
-          'https://firebasestorage.googleapis.com/v0/b/da2-2023.appspot.com/o/ProductImages%2F3734754_01a0b0cb-593a-4218-9c41-6ef22898569d_large.jpg?alt=media&token=eb948a3d-734a-4589-b5e5-e40f0ab7a18e',
-      link: '',
-    ),
-    ProductCard(
-      productName: 'Product 1',
-      brand: 'Brand A',
-      price: 10.00,
-      description:
-          'Product 1 description goes here.',
-      image:
-          'https://firebasestorage.googleapis.com/v0/b/da2-2023.appspot.com/o/ProductImages%2F3580186_large.jpg?alt=media&token=c7e970e3-ace3-430a-8625-27c3cf67a940',
-      link: '',
-    ),
-    ProductCard(
-      productName: 'Product 2',
-      brand: 'Brand B',
-      price: 20.50,
-      description: 'Product 2 description goes here.',
-      image:
-          'https://firebasestorage.googleapis.com/v0/b/da2-2023.appspot.com/o/ProductImages%2F3734754_01a0b0cb-593a-4218-9c41-6ef22898569d_large.jpg?alt=media&token=eb948a3d-734a-4589-b5e5-e40f0ab7a18e',
-      link: '',
-    ),
-    ProductCard(
-      productName: 'Product 1',
-      brand: 'Brand A',
-      price: 10.00,
-      description: 'Product 1 description goes here.',
-      image:
-          'https://firebasestorage.googleapis.com/v0/b/da2-2023.appspot.com/o/ProductImages%2F3580186_large.jpg?alt=media&token=c7e970e3-ace3-430a-8625-27c3cf67a940',
-      link: '',
-    ),
-    ProductCard(
-      productName: 'Product 2',
-      brand: 'Brand B',
-      price: 20.50,
-      description: 'Product 2 description goes here.',
-      image:
-          'https://firebasestorage.googleapis.com/v0/b/da2-2023.appspot.com/o/ProductImages%2F3734754_01a0b0cb-593a-4218-9c41-6ef22898569d_large.jpg?alt=media&token=eb948a3d-734a-4589-b5e5-e40f0ab7a18e',
-      link: '',
-    ),
-    ProductCard(
-      productName: 'Product 1',
-      brand: 'Brand A',
-      price: 10.00,
-      description: 'Product 1 description goes here.',
-      image:
-          'https://firebasestorage.googleapis.com/v0/b/da2-2023.appspot.com/o/ProductImages%2F3580186_large.jpg?alt=media&token=c7e970e3-ace3-430a-8625-27c3cf67a940',
-      link: '',
-    ),
-    ProductCard(
-      productName: 'Product 2',
-      brand: 'Brand B',
-      price: 20.50,
-      description: 'Product 2 description goes here.',
-      image:
-          'https://firebasestorage.googleapis.com/v0/b/da2-2023.appspot.com/o/ProductImages%2F3734754_01a0b0cb-593a-4218-9c41-6ef22898569d_large.jpg?alt=media&token=eb948a3d-734a-4589-b5e5-e40f0ab7a18e',
-      link: '',
-    ),
-    ProductCard(
-      productName: 'Product 1',
-      brand: 'Brand A',
-      price: 10.00,
-      description: 'Product 1 description goes here.',
-      image:
-          'https://firebasestorage.googleapis.com/v0/b/da2-2023.appspot.com/o/ProductImages%2F3580186_large.jpg?alt=media&token=c7e970e3-ace3-430a-8625-27c3cf67a940',
-      link: '',
-    ),
-    ProductCard(
-      productName: 'Product 2',
-      brand: 'Brand B',
-      price: 20.50,
-      description: 'Product 2 description goes here.',
-      image:
-          'https://firebasestorage.googleapis.com/v0/b/da2-2023.appspot.com/o/ProductImages%2F3734754_01a0b0cb-593a-4218-9c41-6ef22898569d_large.jpg?alt=media&token=eb948a3d-734a-4589-b5e5-e40f0ab7a18e',
-      link: '',
-    ),
+
     // Add more products here
   ];
 
@@ -364,12 +158,8 @@ class _ShopScreenState extends State<ShopScreen> {
                     if (index < _products.length) {
                       // Display the product card
                       return ProductCard(
-                        productName: _products[index].productName,
-                        brand: _products[index].brand,
-                        price: _products[index].price,
-                        description: _products[index].description,
-                        image: _products[index].image,
-                        link: _products[index].link,
+                        product: _products[index],
+                      
                       );
                     } else {
                       return Container(

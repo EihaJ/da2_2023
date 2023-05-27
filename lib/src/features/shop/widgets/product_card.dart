@@ -1,42 +1,24 @@
-import 'package:da22023/src/common_widgets/cta_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ProductCard extends StatelessWidget {
-  final String productName;
-  final String brand;
-  final double price;
-  final String description;
-  final String image;
-  final String link;
+import '../../../common_models/product.dart';
 
-  ProductCard({
-    required this.productName,
-    required this.brand,
-    required this.price,
-    required this.description,
-    required this.image,
-    required this.link,
-  });
+class ProductCard extends StatelessWidget {
+  final Product product;
+
+  ProductCard({required this.product});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        // Handle the tap event here
         Get.toNamed(
           '/product_detail',
           arguments: {
-            'productName': productName,
-            'brand': brand,
-            'price': price,
-            'description': description,
-            'image': image,
-            'link': link,
-        
+            'product': product.toJson(),
           },
         );
-        print('Product tapped: $productName');
+        print('Product tapped: ${product.productName}');
       },
       child: Container(
         decoration: BoxDecoration(
@@ -56,29 +38,21 @@ class ProductCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Image.network(
-                image,
+                product.mainImage ?? 'fallback_image_url',
                 fit: BoxFit.contain,
               ),
               const SizedBox(height: 8),
               Text(
-                productName,
+                product.productName ?? 'No Product Name',
                 style: Theme.of(context).textTheme.titleLarge,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
               ),
               const SizedBox(height: 16),
-              //   Text(
-              //     'Brand: $brand',
-              //     style: Theme.of(context).textTheme.bodyLarge,
-              //     overflow: TextOverflow.ellipsis,
-              //     maxLines: 1,
-              //   ),
-              //  const  SizedBox(height: 2),
-
               const SizedBox(height: 2),
               Expanded(
                 child: Text(
-                  description,
+                  product.description,
                   style: Theme.of(context).textTheme.bodyLarge,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 3,
@@ -109,7 +83,7 @@ class ProductCard extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '\$$price',
+                    '\$${product.price}',
                     style: Theme.of(context).textTheme.titleLarge,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,

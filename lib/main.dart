@@ -16,7 +16,7 @@ import 'src/common_widgets/appbar.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-      options: FirebaseOptions(
+      options: const FirebaseOptions(
           apiKey: "AIzaSyAp3He4RWrIPVl5xLBIuY45Quo_14Jkr3o",
           appId: "1:268306302168:web:44a25c21c1e116a05283ad",
           messagingSenderId: "268306302168",
@@ -26,40 +26,39 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   final CartController cartController = Get.put(CartController());
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  
 
   @override
   Widget build(BuildContext context) {
+    Get.put(YourController()); 
     return GetMaterialApp(
       theme: WebTheme.lightTheme,
-      defaultTransition: Transition.fadeIn,
+      defaultTransition: Transition.topLevel,
       initialRoute: "/",
       getPages: AppRoutes.pages,
       builder: (context, child) {
-        final CartController cartController = Get.find<CartController>();
-        return Obx(() {
-          return Scaffold(
-            appBar: shouldShowAppBar(Get.currentRoute)
-                ? null
-                : appBar(cartController),
-            endDrawer:
-                cartController.isCartDrawerOpen.value ? CartDrawer() : null,
-            body: child,
-          );
-        });
+        final YourController controller = Get.find<YourController>(); // Replace `YourController` with your actual controller class name
+
+        return Scaffold(
+          key: scaffoldKey,
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(72), // Set the preferred size of the app bar
+            child: Obx(() => appBarCustom(route: controller.currentRoute.value)), // Wrap AppBarCustom with PreferredSize
+          ),
+          endDrawer: CartDrawer(),
+          body: child,
+        );
       },
     );
   }
-
-  bool shouldShowAppBar(String currentRoute) {
-    List<String> routesWithAppBar = [
-      // Add other routes where the app bar should be displayed
-      '/login',
-      // Add more routes here if needed
-    ];
-
-    return routesWithAppBar.contains(currentRoute);
-  }
 }
+
+class YourController extends GetxController {
+  RxString currentRoute = ''.obs;
+}
+
+
 
           // apiKey: "AIzaSyAp3He4RWrIPVl5xLBIuY45Quo_14Jkr3o",
           // appId: "1:268306302168:web:44a25c21c1e116a05283ad",

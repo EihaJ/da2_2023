@@ -12,57 +12,71 @@ import '../features/search/screens/search.dart';
 import '../features/cart/controllers/cart_controller.dart';
 import '../features/cart/screens/cart.dart';
 
-class appBar extends StatefulWidget implements PreferredSizeWidget {
-  final CartController cartController;
-  appBar(this.cartController);
+class appBarCustom extends StatefulWidget implements PreferredSizeWidget {
+
+  final String route;
+
+  appBarCustom({this.route = ''});
+
+  List<String> routesBlock = [
+    '/login',
+  ];
+
   @override
   _appBarState createState() => _appBarState();
 
   @override
-  Size get preferredSize => Size.fromHeight(72);
+  Size get preferredSize =>
+      Size.fromHeight(72); // Set the preferred size of the app bar
 }
 
-class _appBarState extends State<appBar> {
+class _appBarState extends State<appBarCustom> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: AlignmentDirectional.topCenter,
-      width: double.infinity,
-      height: 72,
-      decoration: BoxDecoration(
-        color: Theme.of(context).canvasColor,
-        boxShadow: [
-          BoxShadow(
-            color: PrimaryColor1.withOpacity(0.1),
-            blurRadius: 8,
-            offset: Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Padding(
-        padding: EdgeInsetsDirectional.fromSTEB(80, 0, 80, 0),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-              width: 100,
-              height: 50,
-              child: InkResponse(
-                child: Image.asset(
-                  logo_black,
-                  width: 240,
-                  height: 100,
-                  fit: BoxFit.cover,
-                ),
-                onTap: () => Get.toNamed("/"),
-              ),
-            ),
-            CustomButtonRow(),
-            CustomIconButtonRow(
-              cartController: widget.cartController,
+    bool shouldShowAppBar = !widget.routesBlock
+        .contains(widget.route); // Check if the route is in routesBlock list
+
+    return Opacity(
+      opacity: shouldShowAppBar == true ? 1 : 0,
+      child: Container(
+        alignment: AlignmentDirectional.topCenter,
+        width: double.infinity,
+        height: 72,
+        decoration: BoxDecoration(
+          color: Theme.of(context).canvasColor,
+          boxShadow: [
+            BoxShadow(
+              color: PrimaryColor1.withOpacity(0.1),
+              blurRadius: 8,
+              offset: Offset(0, 4),
             ),
           ],
+        ),
+        child: Padding(
+          padding: EdgeInsetsDirectional.fromSTEB(80, 0, 80, 0),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                width: 100,
+                height: 50,
+                child: InkResponse(
+                  child: Image.asset(
+                    logo_black,
+                    width: 240,
+                    height: 100,
+                    fit: BoxFit.cover,
+                  ),
+                  onTap: () {
+                    Get.toNamed("/");
+                  },
+                ),
+              ),
+              CustomButtonRow(),
+              CustomIconButtonRow()
+            ],
+          ),
         ),
       ),
     );
@@ -202,9 +216,6 @@ class _CustomButtonRowState extends State<CustomButtonRow> {
 }
 
 class CustomIconButtonRow extends StatelessWidget {
-  final CartController cartController;
-
-  CustomIconButtonRow({required this.cartController});
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -223,7 +234,9 @@ class CustomIconButtonRow extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 16),
           iconSize: 26,
           onPressed: () {
-             cartController.toggleCartDrawer();
+            Scaffold.of(context).openEndDrawer();
+
+            //This is where you click to open drawer
             print('cart open');
           },
           icon: Icon(Icons.shopping_bag_outlined),
@@ -232,9 +245,14 @@ class CustomIconButtonRow extends StatelessWidget {
           icon: Icon(Icons.login_outlined),
           padding: EdgeInsets.symmetric(horizontal: 16),
           iconSize: 26,
-          onPressed: () => Get.toNamed("/login"),
+          onPressed: () {
+            Get.toNamed("/login");
+             print(Get.currentRoute);
+          },
         ),
       ],
     );
   }
 }
+
+
