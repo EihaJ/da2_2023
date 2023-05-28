@@ -7,7 +7,7 @@ import '../../../common_models/product.dart';
 
 import '../../homepage/widgets/productshowcase.dart';
 
-import '../widgets/options.dart';
+import '../widgets/options_checkbox.dart';
 
 class ProductDetailScreen extends StatefulWidget {
   @override
@@ -92,15 +92,20 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                               color: Colors.black,
                             ),
                             const SizedBox(height: 16),
-                            VersionCheckbox(),
+                            OptionsCheckbox(),
                             const SizedBox(height: 16),
                             Row(
                               children: [
-                                CTAButton(onPressed: () {}, text: 'BUY NOW'),
+                                CTAButton(
+                                  onPressed: () {},
+                                  text: 'BUY NOW',
+                             
+                                ),
                                 CTAButton(
                                   onPressed: () {},
                                   text: 'ADD TO CART',
                                   buttonType: ButtonType.secondary,
+                             
                                 )
                               ],
                             )

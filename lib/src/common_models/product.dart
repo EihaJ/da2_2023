@@ -115,9 +115,11 @@ class Product {
   String description;
   String mainImage;
   String artist;
+  double quantity;
   List<String> tags;
 
   Product({
+    this.quantity = 1,
     required this.id,
     required this.productName,
     required this.version,
@@ -131,6 +133,7 @@ class Product {
 
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
+      quantity: (json['quantity']?? 0.0).toDouble(),
       id: json['id'] ?? '',
       productName: json['productName'] ?? '',
       brand: json['brand'] ?? '',

@@ -3,11 +3,19 @@ import 'package:flutter/material.dart';
 class AdjustableQuantity extends StatefulWidget {
   final ValueChanged<int> onChanged;
   final int initialValue;
+  final double buttonSize;
+  final double iconSize;
+  final double textSize;
+  final double distance;
 
   const AdjustableQuantity({
     Key? key,
     required this.onChanged,
     this.initialValue = 1,
+    this.textSize = 20,
+    this.buttonSize = 32,
+    this.iconSize = 20,
+    this.distance = 16,
   }) : super(key: key);
 
   @override
@@ -44,14 +52,29 @@ class _AdjustableQuantityState extends State<AdjustableQuantity> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        AdjustButton(icons: Icons.remove, onPressed: _decrementQuantity),
-        const SizedBox(width: 16),
+        AdjustButton(
+          icon: Icons.remove,
+          onPressed: _decrementQuantity,
+          buttonSize: widget.buttonSize,
+          iconSize: widget.iconSize,
+        
+        ),
+        SizedBox(width: widget.distance),
         Text(
           '$_quantity',
-          style: TextStyle(fontSize: 18),
+          style: Theme.of(context)
+              .textTheme
+              .titleLarge
+              ?.copyWith(color: Colors.black ,fontSize: widget.textSize),
         ),
-        const SizedBox(width: 16),
-        AdjustButton(icons: Icons.add, onPressed: _incrementQuantity),
+        SizedBox(width: widget.distance),
+        AdjustButton(
+          icon: Icons.add,
+          onPressed: _incrementQuantity,
+          buttonSize: widget.buttonSize,
+          iconSize: widget.iconSize,
+     
+        ),
       ],
     );
   }
@@ -59,12 +82,18 @@ class _AdjustableQuantityState extends State<AdjustableQuantity> {
 
 class AdjustButton extends StatefulWidget {
   final VoidCallback onPressed;
-  final IconData icons;
+  final IconData icon;
+  final double buttonSize;
+  final double iconSize;
+
 
   const AdjustButton({
     Key? key,
-    required this.icons,
     required this.onPressed,
+    required this.icon,
+    this.buttonSize = 32.0,
+    this.iconSize = 20.0,
+  
   }) : super(key: key);
 
   @override
@@ -94,14 +123,19 @@ class _AdjustButtonState extends State<AdjustButton> {
       },
       onTap: widget.onPressed,
       child: Container(
+        width: widget.buttonSize,
+        height: widget.buttonSize,
         decoration: BoxDecoration(
           color: _isPressed ? Colors.black : Colors.white,
           border: Border.all(color: Colors.black),
         ),
-        padding: const EdgeInsets.all(8.0),
-        child: Icon(
-          widget.icons,
-          color: _isPressed ? Colors.white : Colors.black,
+        
+        child: Center(
+          child: Icon(
+            widget.icon,
+            size: widget.iconSize,
+            color: _isPressed ? Colors.white : Colors.black,
+          ),
         ),
       ),
     );

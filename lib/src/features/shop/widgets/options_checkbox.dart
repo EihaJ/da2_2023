@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 import '../../../common_widgets/adjust_quantity.dart';
 
-class VersionCheckbox extends StatefulWidget {
+class OptionsCheckbox extends StatefulWidget {
   @override
-  _VersionCheckboxState createState() => _VersionCheckboxState();
+  _OptionsCheckboxState createState() => _OptionsCheckboxState();
 }
 
-class _VersionCheckboxState extends State<VersionCheckbox> {
+class _OptionsCheckboxState extends State<OptionsCheckbox> {
   int _clickedIndex = 0; // Set the first checkbox as clicked by default
   int _numberOfCopies = 1; // Number of copies selected
 
