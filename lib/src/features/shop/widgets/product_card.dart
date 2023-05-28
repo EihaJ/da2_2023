@@ -38,12 +38,12 @@ class ProductCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Image.network(
-                product.mainImage ?? 'fallback_image_url',
+                product.mainImage ,
                 fit: BoxFit.contain,
               ),
               const SizedBox(height: 8),
               Text(
-                product.productName ?? 'No Product Name',
+                product.productName ,
                 style: Theme.of(context).textTheme.titleLarge,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,

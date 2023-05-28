@@ -44,7 +44,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Image.network(
-                      product.mainImage ?? 'fallback_image_url',
+                      product.mainImage ,
                       fit: BoxFit.contain,
                       width: 400,
                     ),
