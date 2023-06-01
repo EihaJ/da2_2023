@@ -14,12 +14,15 @@ import '../../../../common_widgets/cta_button.dart';
 import '../sign_up/sign_up.dart';
 
 class NewProfileScreen extends StatefulWidget {
+  final String userId;
+  NewProfileScreen({required this.userId});
   @override
   _NewProfileScreenState createState() => _NewProfileScreenState();
 }
 
 class _NewProfileScreenState extends State<NewProfileScreen> {
   late String _username;
+  late String _address;
 
   List<String> avtList = [avt1, avt2, avt3, avt4, avt5];
 
@@ -128,6 +131,13 @@ class _NewProfileScreenState extends State<NewProfileScreen> {
                       CustomTextField(
                         onChanged: (value) => setState(() => _username = value),
                         labelText: 'Username',
+                        textFieldType: TextFieldType.white,
+                        textFieldWidth: TextFieldWidth.fill,
+                      ),
+
+                      CustomTextField(
+                        onChanged: (value) => setState(() => _address = value),
+                        labelText: 'Address',
                         textFieldType: TextFieldType.white,
                         textFieldWidth: TextFieldWidth.fill,
                       ),

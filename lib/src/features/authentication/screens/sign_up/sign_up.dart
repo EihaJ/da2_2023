@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+import '../../../../common_models/user.dart';
+import '../new_profile/new_profile.dart';
 
 import '../../../../constants/image_strings.dart';
 import '../../../../constants/colors.dart';
@@ -15,7 +19,7 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen> {
   late String _email;
   late String _password;
-  late String _confirmpassword;
+  late String _confirmPassword;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +48,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      //BackToHomepage
+                      // BackToHomepage
                       InkWell(
                         onTap: () {
                           Get.offAndToNamed("/");
@@ -72,15 +76,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         height: 48,
                       ),
 
-                      //Title
+                      // Title
                       Text(
                         'SIGN UP',
-                        style: Theme.of(context)
-                            .textTheme
-                            .displayLarge
-                            ?.copyWith(
-                                color: Color(0xFFF5F5F5),
-                                fontWeight: FontWeight.w500),
+                        style: Theme.of(context).textTheme.headline4?.copyWith(
+                              color: Color(0xFFF5F5F5),
+                              fontWeight: FontWeight.w500,
+                            ),
                       ),
 
                       SizedBox(
@@ -92,7 +94,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             'Already have an account?',
                             style: Theme.of(context)
                                 .textTheme
-                                .bodyLarge
+                                .bodyText1
                                 ?.copyWith(color: Colors.white),
                           ),
                           TextButton(
@@ -103,7 +105,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               'Login Here',
                               style: Theme.of(context)
                                   .textTheme
-                                  .bodyLarge
+                                  .bodyText1
                                   ?.copyWith(
                                     color: Colors.white,
                                     fontWeight: FontWeight.w500,
@@ -127,7 +129,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
                       const SizedBox(height: 20.0),
                       CustomTextField(
-                        onChanged: (value) => setState(() => _password = value),
+                        onChanged: (value) =>
+                            setState(() => _password = value),
                         labelText: 'Password',
                         textFieldType: TextFieldType.white,
                         textFieldWidth: TextFieldWidth.fill,
@@ -137,7 +140,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       const SizedBox(height: 20.0),
                       CustomTextField(
                         onChanged: (value) =>
-                            setState(() => _confirmpassword = value),
+                            setState(() => _confirmPassword = value),
                         labelText: 'Confirm Password',
                         textFieldType: TextFieldType.white,
                         textFieldWidth: TextFieldWidth.fill,
@@ -146,9 +149,30 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
                       const SizedBox(height: 40.0),
                       CTAButton(
-                        onPressed: () {
-                          Get.toNamed('/new_profile');
-                          print('Sign up success');
+                        onPressed: () async {
+                          if (_password == _confirmPassword) {
+                            try {
+                              UserCredential userCredential =
+                                  await UserFirebase(
+                                name: '',
+                                age: 0,
+                                avatarImageLink: '',
+                                addresses: [],
+                                phoneNumber: '',
+                                emailAddress: _email,
+                                password: _password,
+                              ).create();
+                              Get.off(NewProfileScreen(
+                                userId: userCredential.user!.uid,
+                              ));
+                              print('Sign up success');
+                            } catch (e) {
+                              print('Error creating user: $e');
+                              // Handle the error gracefully
+                            }
+                          } else {
+                            print('Passwords do not match');
+                          }
                         },
                         text: "SIGN UP",
                         buttonType: ButtonType.secondary,

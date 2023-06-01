@@ -2,11 +2,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../common_models/user.dart';
+
 import '../../../../constants/image_strings.dart';
 import '../../../../constants/colors.dart';
 
 import '../../../../common_widgets/text_field.dart';
 import '../../../../common_widgets/cta_button.dart';
+
+import '../../controllers/auth_controller.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -14,14 +18,14 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  late String _email;
-  late String _password;
+  RxString _email = ''.obs;
+  RxString _password = ''.obs;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: null, // Hide the appBar in LoginScreen
-      body:  SafeArea(
+      appBar: null,
+      body: SafeArea(
         child: Stack(
           children: [
             Image.asset(
@@ -38,7 +42,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 650,
                 width: 500,
                 child: Padding(
-                  // ignore: prefer_const_constructors
                   padding: EdgeInsets.symmetric(
                     horizontal: 40.0,
                     vertical: 72.0,
@@ -46,13 +49,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      //BackToHomepage
                       InkWell(
                         onTap: () {
                           Get.offAndToNamed("/");
                         },
                         child: Row(
-                          // ignore: prefer_const_literals_to_create_immutables
                           children: [
                             Icon(
                               Icons.arrow_back_outlined,
@@ -73,17 +74,14 @@ class _LoginScreenState extends State<LoginScreen> {
                       const SizedBox(
                         height: 48,
                       ),
-                      //Title
                       Text(
                         'LOGIN',
-                        style: Theme.of(context)
-                            .textTheme
-                            .displayLarge
-                            ?.copyWith(
-                                color: Color(0xFFF5F5F5),
-                                fontWeight: FontWeight.w500),
+                        style:
+                            Theme.of(context).textTheme.displayLarge?.copyWith(
+                                  color: Color(0xFFF5F5F5),
+                                  fontWeight: FontWeight.w500,
+                                ),
                       ),
-
                       SizedBox(
                         height: 10,
                       ),
@@ -120,15 +118,16 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: 40,
                       ),
                       CustomTextField(
-                        onChanged: (value) => setState(() => _email = value),
+                        onChanged: (value) =>
+                            setState(() => _email.value = value),
                         labelText: 'Email',
                         textFieldType: TextFieldType.white,
                         textFieldWidth: TextFieldWidth.fill,
                       ),
-
                       const SizedBox(height: 20.0),
                       CustomTextField(
-                        onChanged: (value) => setState(() => _password = value),
+                        onChanged: (value) =>
+                            setState(() => _password.value = value),
                         labelText: 'Password',
                         textFieldType: TextFieldType.white,
                         textFieldWidth: TextFieldWidth.fill,
@@ -136,7 +135,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       const SizedBox(height: 5.0),
                       TextButton(
-                        //Connect to Forgot Password
                         onPressed: () {
                           Get.toNamed('/forgot_password');
                         },
@@ -154,8 +152,36 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       const SizedBox(height: 40.0),
                       CTAButton(
-                        onPressed: () {
-                          print('login success');
+                        onPressed: () async {
+                          UserFirebase user = UserFirebase(
+                            id: '',
+                            name: '',
+                            age: 0,
+                            avatarImageLink: '',
+                            addresses: [],
+                            phoneNumber: '',
+                            emailAddress: _email.value,
+                            password: _password.value,
+                          );
+
+                          UserFirebase? authenticatedUser =
+                              await UserFirebase.getUserById(user.emailAddress);
+
+                          if (authenticatedUser != null &&
+                              authenticatedUser.password == user.password) {
+                            // User authentication successful
+                            print('Login success');
+                            // Set the authenticated user in GetX controller
+                            Get.find<AuthController>().login(authenticatedUser);
+                            Get.offAllNamed('/');
+                          } else {
+                            // User authentication failed
+                            print('Invalid email or password');
+                            print(_email.value);
+                            print(_password.value);
+                            print(authenticatedUser?.password);
+                             print(authenticatedUser?.emailAddress);
+                          }
                         },
                         text: "LOGIN",
                         buttonType: ButtonType.secondary,
@@ -165,8 +191,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       InkResponse(
                         splashColor: Colors.transparent,
                         enableFeedback: false,
-
-                        //Log in using google
                         onTap: () {},
                         child: Container(
                           height: 48,
@@ -176,11 +200,12 @@ class _LoginScreenState extends State<LoginScreen> {
                             border: Border.all(),
                           ),
                           child: Center(
-                              child: Image.asset(
-                            google_logo,
-                            height: 24,
-                            width: 24,
-                          )),
+                            child: Image.asset(
+                              google_logo,
+                              height: 24,
+                              width: 24,
+                            ),
+                          ),
                         ),
                       ),
                     ],

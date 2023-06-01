@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 // MODEL FOR FIREBASE VERSION
+import 'package:firebase_auth/firebase_auth.dart';
+
 class UserFirebase {
-  final String id;
+  final String? id;
   String name;
   int age;
   String avatarImageLink;
@@ -12,7 +14,7 @@ class UserFirebase {
   String password;
 
   UserFirebase({
-    required this.id,
+    this.id,
     required this.name,
     required this.age,
     required this.avatarImageLink,
@@ -64,10 +66,24 @@ class UserFirebase {
     };
   }
 
-  Future<void> create() async {
-    final collection = FirebaseFirestore.instance.collection('users');
-    await collection.doc(id).set(toMap());
+Future<UserCredential> create() async {
+  final auth = FirebaseAuth.instance;
+  final firestore = FirebaseFirestore.instance;
+  try {
+    UserCredential userCredential = await auth.createUserWithEmailAndPassword(
+      email: emailAddress,
+      password: password,
+    );
+
+    // Store user information in Firestore
+    await firestore.collection('users').doc(userCredential.user!.uid).set(toMap());
+
+    return userCredential;
+  } catch (e) {
+    print('Error creating user: $e');
+    rethrow;
   }
+}
 
   Future<void> update() async {
     final collection = FirebaseFirestore.instance.collection('users');
@@ -98,6 +114,7 @@ class UserFirebase {
     }
   }
 }
+
 
 //MODEL FOR TESTING VERSION
 class User {

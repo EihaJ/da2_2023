@@ -6,7 +6,7 @@ import '../features/homepage/screens/homepage.dart';
 import '../features/search/screens/search.dart';
 
 import '../features/shop/screens/shop.dart';
-import '../features/shop/screens/product_detail.dart' ;
+import '../features/shop/screens/product_detail.dart';
 
 import '../features/about_us/screens/about_us.dart';
 
@@ -50,7 +50,7 @@ class AppRoutes {
     ),
     GetPage(
       name: '/new_profile',
-      page: () => NewProfileScreen(),
+      page: () => NewProfileScreen(userId: ''),
     ),
 
     //SHOP
