@@ -11,6 +11,8 @@ import '../../../constants/image_strings.dart';
 import '../../../common_widgets/appbar.dart';
 import '../../../common_widgets/footer.dart';
 
+import '../../cart/screens/cart.dart';
+
 class AboutUsScreen extends StatefulWidget {
   AboutUsScreen();
 
@@ -36,65 +38,71 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Flex(
-        direction: Axis.vertical,
-        children: [
-          // Body
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 80),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  //TODO: Add Image
-                  Image.asset(
-                    about_us,
-                    height: 640,
-                  ),
-                  const SizedBox(
-                    width: 160,
-                  ),
-                  //Content
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'NUON AUDIO STATION',
-                        style: Theme.of(context).textTheme.displayLarge,
-                      ),
-                      const SizedBox(height: 24),
-                      Container(
-                        width: 740,
-                        child: Text(
-                          fileContent,
-                          textAlign: TextAlign.justify,
-                          overflow: TextOverflow.clip,
-                          style:
-                              Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                    letterSpacing: 0.2,
-                                  ),
+    return Scaffold(
+      appBar: appBarCustom(
+        route: "/",
+      ),
+      endDrawer: CartDrawer(),
+      body: SafeArea(
+        child: Flex(
+          direction: Axis.vertical,
+          children: [
+            // Body
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 80),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    //TODO: Add Image
+                    Image.asset(
+                      about_us,
+                      height: 640,
+                    ),
+                    const SizedBox(
+                      width: 160,
+                    ),
+                    //Content
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'NUON AUDIO STATION',
+                          style: Theme.of(context).textTheme.displayLarge,
                         ),
-                      ),
-                      const SizedBox(height: 24),
-                      CTAButton(
-                          onPressed: () {
-                            print('shop');
-                            Get.toNamed('/shop');
-                          },
-                          text: 'SHOP OUR PRODUCT')
-                    ],
-                  )
-                ],
+                        const SizedBox(height: 24),
+                        Container(
+                          width: 740,
+                          child: Text(
+                            fileContent,
+                            textAlign: TextAlign.justify,
+                            overflow: TextOverflow.clip,
+                            style:
+                                Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                      letterSpacing: 0.2,
+                                    ),
+                          ),
+                        ),
+                        const SizedBox(height: 24),
+                        CTAButton(
+                            onPressed: () {
+                              print('shop');
+                              Get.toNamed('/shop');
+                            },
+                            text: 'SHOP OUR PRODUCT')
+                      ],
+                    )
+                  ],
+                ),
               ),
             ),
-          ),
 
-          //TODO: Footer
-          WebsiteFooter(),
-        ],
+            //TODO: Footer
+            WebsiteFooter(),
+          ],
+        ),
       ),
     );
   }

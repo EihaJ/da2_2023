@@ -129,8 +129,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
                       const SizedBox(height: 20.0),
                       CustomTextField(
-                        onChanged: (value) =>
-                            setState(() => _password = value),
+                        onChanged: (value) => setState(() => _password = value),
                         labelText: 'Password',
                         textFieldType: TextFieldType.white,
                         textFieldWidth: TextFieldWidth.fill,
@@ -154,6 +153,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             try {
                               UserCredential userCredential =
                                   await UserFirebase(
+                                role: 'user',
+                                uid: '',
                                 name: '',
                                 age: 0,
                                 avatarImageLink: '',

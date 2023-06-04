@@ -1,3 +1,4 @@
+import 'package:da22023/src/common_models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -12,8 +13,9 @@ import '../features/search/screens/search.dart';
 import '../features/cart/controllers/cart_controller.dart';
 import '../features/cart/screens/cart.dart';
 
-class appBarCustom extends StatefulWidget implements PreferredSizeWidget {
+import '../features/authentication/controllers/auth_controller.dart';
 
+class appBarCustom extends StatefulWidget implements PreferredSizeWidget {
   final String route;
 
   appBarCustom({this.route = ''});
@@ -31,6 +33,8 @@ class appBarCustom extends StatefulWidget implements PreferredSizeWidget {
 }
 
 class _appBarState extends State<appBarCustom> {
+  final AuthController _authController = Get.find<AuthController>();
+
   @override
   Widget build(BuildContext context) {
     bool shouldShowAppBar = !widget.routesBlock
@@ -74,7 +78,17 @@ class _appBarState extends State<appBarCustom> {
                 ),
               ),
               CustomButtonRow(),
-              CustomIconButtonRow()
+              Obx(() {
+                final userID = _authController.uid.value;
+                final authenticatedUser =
+                    _authController.authenticatedUser.value;
+                final user = authenticatedUser as UserFirebase?;
+
+                return CustomIconButtonRow(
+                  userID: userID,
+                  user: user,
+                );
+              }),
             ],
           ),
         ),
@@ -216,6 +230,11 @@ class _CustomButtonRowState extends State<CustomButtonRow> {
 }
 
 class CustomIconButtonRow extends StatelessWidget {
+  final String userID;
+  final UserFirebase? user;
+
+  CustomIconButtonRow({required this.userID, required this.user});
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -236,23 +255,75 @@ class CustomIconButtonRow extends StatelessWidget {
           onPressed: () {
             Scaffold.of(context).openEndDrawer();
 
-            //This is where you click to open drawer
+            // This is where you click to open the drawer
             print('cart open');
           },
           icon: Icon(Icons.shopping_bag_outlined),
         ),
-        IconButton(
-          icon: Icon(Icons.login_outlined),
-          padding: EdgeInsets.symmetric(horizontal: 16),
-          iconSize: 26,
-          onPressed: () {
-            Get.toNamed("/login");
-             print(Get.currentRoute);
-          },
-        ),
+        if (userID.isEmpty)
+          IconButton(
+            icon: Icon(Icons.login_outlined),
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            iconSize: 26,
+            onPressed: () {
+              Get.toNamed("/login");
+              print(Get.currentRoute);
+            },
+          )
+        else
+          InkWell(
+            onTap: () {},
+            child: PopupMenuButton(
+              offset: const Offset(0, 36),
+              itemBuilder: (BuildContext context) {
+                return <PopupMenuEntry>[
+                  PopupMenuItem(
+                    child: ListTile(
+                      leading: Icon(Icons.person_outline),
+                      title: Text(
+                        'Profile',
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
+                      onTap: () {
+                        // Go to it Profile
+                      },
+                    ),
+                  ),
+                  PopupMenuItem(
+                    child: ListTile(
+                      leading: Icon(Icons.logout_outlined),
+                      title: Text(
+                        'Log out',
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
+                      onTap: () {
+                        Get.find<AuthController>().logout();
+                      },
+                    ),
+                  ),
+                ];
+              },
+              child: user?.avatarImageLink != null &&
+                      user!.avatarImageLink.isNotEmpty
+                  ? ClipOval(
+                      child: Image.network(
+                        user!.avatarImageLink,
+                        height: 32,
+                        width: 32,
+                        fit: BoxFit.fill,
+                      ),
+                    )
+                  : ClipOval(
+                      child: Image.network(
+                        'https://firebasestorage.googleapis.com/v0/b/da2-2023.appspot.com/o/WebAssets%2FNewsletterClip.mp4?alt=media&token=755850c4-47fa-4f0e-a4b1-b7c47bc29f3c',
+                        height: 32,
+                        width: 32,
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+            ),
+          ),
       ],
     );
   }
 }
-
-

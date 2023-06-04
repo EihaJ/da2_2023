@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../../../common_models/user.dart';
 
@@ -18,13 +19,13 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final AuthController _authController = Get.find();
   RxString _email = ''.obs;
   RxString _password = ''.obs;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: null,
       body: SafeArea(
         child: Stack(
           children: [
@@ -133,7 +134,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         textFieldWidth: TextFieldWidth.fill,
                         obscureText: true,
                       ),
-                      const SizedBox(height: 5.0),
+                      const SizedBox(height: 12.0),
                       TextButton(
                         onPressed: () {
                           Get.toNamed('/forgot_password');
@@ -150,39 +151,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                         ),
                       ),
-                      const SizedBox(height: 40.0),
+                      const SizedBox(height: 32.0),
                       CTAButton(
-                        onPressed: () async {
-                          UserFirebase user = UserFirebase(
-                            id: '',
-                            name: '',
-                            age: 0,
-                            avatarImageLink: '',
-                            addresses: [],
-                            phoneNumber: '',
-                            emailAddress: _email.value,
-                            password: _password.value,
-                          );
-
-                          UserFirebase? authenticatedUser =
-                              await UserFirebase.getUserById(user.emailAddress);
-
-                          if (authenticatedUser != null &&
-                              authenticatedUser.password == user.password) {
-                            // User authentication successful
-                            print('Login success');
-                            // Set the authenticated user in GetX controller
-                            Get.find<AuthController>().login(authenticatedUser);
-                            Get.offAllNamed('/');
-                          } else {
-                            // User authentication failed
-                            print('Invalid email or password');
-                            print(_email.value);
-                            print(_password.value);
-                            print(authenticatedUser?.password);
-                             print(authenticatedUser?.emailAddress);
-                          }
-                        },
+                        onPressed: () {_authController.loginWithEmailAndPassword(_email.value, _password.value);},
                         text: "LOGIN",
                         buttonType: ButtonType.secondary,
                         buttonWidth: ButtonWidth.fill,

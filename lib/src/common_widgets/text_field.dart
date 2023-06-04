@@ -39,7 +39,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       
       width: widget.textFieldWidth == TextFieldWidth.value ? widget.width : double.infinity,
       child: TextFormField(
-        style: TextStyle(color: Colors.white),
+        style: widget.textFieldType != TextFieldType.black ? TextStyle(color: Colors.white): TextStyle(color: Colors.black),
         controller: _controller,
         // ignore: prefer_const_constructors
         decoration: widget.textFieldType == TextFieldType.black

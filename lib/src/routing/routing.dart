@@ -76,5 +76,7 @@ class AppRoutes {
       name: '/blog',
       page: () => BlogScreen(),
     ),
+
+
   ];
 }

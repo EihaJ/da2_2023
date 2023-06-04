@@ -42,6 +42,7 @@ class _MyAppState extends State<MyApp> {
       defaultTransition: Transition.topLevel,
       initialRoute: "/",
       getPages: AppRoutes.pages,
+      
     );
   }
 }
