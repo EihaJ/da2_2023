@@ -7,16 +7,18 @@ class AdjustableQuantity extends StatefulWidget {
   final double iconSize;
   final double textSize;
   final double distance;
+  final Color themeColor;
 
-  const AdjustableQuantity({
-    Key? key,
-    required this.onChanged,
-    this.initialValue = 1,
-    this.textSize = 20,
-    this.buttonSize = 32,
-    this.iconSize = 20,
-    this.distance = 16,
-  }) : super(key: key);
+  const AdjustableQuantity(
+      {Key? key,
+      required this.onChanged,
+      this.initialValue = 1,
+      this.textSize = 20,
+      this.buttonSize = 32,
+      this.iconSize = 20,
+      this.distance = 16,
+      this.themeColor = Colors.black})
+      : super(key: key);
 
   @override
   _AdjustableQuantityState createState() => _AdjustableQuantityState();
@@ -57,7 +59,7 @@ class _AdjustableQuantityState extends State<AdjustableQuantity> {
           onPressed: _decrementQuantity,
           buttonSize: widget.buttonSize,
           iconSize: widget.iconSize,
-        
+          buttonColor: widget.themeColor,
         ),
         SizedBox(width: widget.distance),
         Text(
@@ -65,7 +67,7 @@ class _AdjustableQuantityState extends State<AdjustableQuantity> {
           style: Theme.of(context)
               .textTheme
               .titleLarge
-              ?.copyWith(color: Colors.black ,fontSize: widget.textSize),
+              ?.copyWith(color: widget.themeColor, fontSize: widget.textSize),
         ),
         SizedBox(width: widget.distance),
         AdjustButton(
@@ -73,7 +75,7 @@ class _AdjustableQuantityState extends State<AdjustableQuantity> {
           onPressed: _incrementQuantity,
           buttonSize: widget.buttonSize,
           iconSize: widget.iconSize,
-     
+          buttonColor: widget.themeColor,
         ),
       ],
     );
@@ -85,7 +87,7 @@ class AdjustButton extends StatefulWidget {
   final IconData icon;
   final double buttonSize;
   final double iconSize;
-
+  final Color buttonColor;
 
   const AdjustButton({
     Key? key,
@@ -93,7 +95,7 @@ class AdjustButton extends StatefulWidget {
     required this.icon,
     this.buttonSize = 32.0,
     this.iconSize = 20.0,
-  
+    this.buttonColor = Colors.black,
   }) : super(key: key);
 
   @override
@@ -126,16 +128,32 @@ class _AdjustButtonState extends State<AdjustButton> {
         width: widget.buttonSize,
         height: widget.buttonSize,
         decoration: BoxDecoration(
-          color: _isPressed ? Colors.black : Colors.white,
-          border: Border.all(color: Colors.black),
+          color: widget.buttonColor == Colors.black
+              ? _isPressed
+                  ? Colors.black
+                  : Colors.white
+              : _isPressed
+                  ? Colors.white
+                  : Colors.black.withOpacity(0),
+          border: Border.all(
+              color: widget.buttonColor == Colors.black
+                  ? _isPressed
+                      ? Colors.white
+                      : Colors.black
+                  : _isPressed
+                      ? Colors.black
+                      : Colors.white),
         ),
-        
         child: Center(
-          child: Icon(
-            widget.icon,
-            size: widget.iconSize,
-            color: _isPressed ? Colors.white : Colors.black,
-          ),
+          child: Icon(widget.icon,
+              size: widget.iconSize,
+              color: widget.buttonColor == Colors.black
+                  ? _isPressed
+                      ? Colors.black
+                      : Colors.white
+                  : _isPressed
+                      ? Colors.black
+                      : Colors.white),
         ),
       ),
     );

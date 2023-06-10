@@ -27,34 +27,7 @@ class _ShopScreenState extends State<ShopScreen> {
   final CartController _cartController = Get.find();
 
   int _postCount = 6; // Initial number of product cards to display
-  final List<Product> _products = [
-    Product(
-      version: 'EPs',
-      id: '1',
-      productName: 'Product 1',
-      brand: 'Brand A',
-      price: 10.00,
-      description: 'Product 1 description goes here.',
-      mainImage:
-          'https://firebasestorage.googleapis.com/v0/b/da2-2023.appspot.com/o/ProductImages%2F3580186_large.jpg?alt=media&token=c7e970e3-ace3-430a-8625-27c3cf67a940',
-      artist: '',
-      tags: [],
-    ),
-    Product(
-      version: 'LPs',
-      id: '2',
-      productName: 'Product 2',
-      brand: 'Brand B',
-      price: 20.50,
-      description: 'Product 2 description goes here.',
-      mainImage:
-          'https://firebasestorage.googleapis.com/v0/b/da2-2023.appspot.com/o/ProductImages%2F3734754_01a0b0cb-593a-4218-9c41-6ef22898569d_large.jpg?alt=media&token=eb948a3d-734a-4589-b5e5-e40f0ab7a18e',
-      artist: '',
-      tags: [],
-    ),
-
-    // Add more products here
-  ];
+  List<ProductFirebase> _products = []; // List of products from Firebase
 
   final ScrollController _scrollController = ScrollController();
 
@@ -62,6 +35,7 @@ class _ShopScreenState extends State<ShopScreen> {
   void initState() {
     super.initState();
     _scrollController.addListener(_scrollListener);
+    _loadProducts(); // Load products from Firebase
   }
 
   @override
@@ -85,13 +59,21 @@ class _ShopScreenState extends State<ShopScreen> {
     }
   }
 
+  void _loadProducts() {
+    ProductFirebase.getAllProducts().listen((products) {
+      setState(() {
+        _products = products;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appBarCustom(
         route: "/",
       ),
-      endDrawer: CartDrawer(),
+      // endDrawer: CartDrawer(),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.only(top: 40),
@@ -102,7 +84,6 @@ class _ShopScreenState extends State<ShopScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                   
                     InkResponse(
                       onTap: () {},
                       child: Row(

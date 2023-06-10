@@ -18,6 +18,7 @@ import '../features/authentication/controllers/auth_controller.dart';
 class appBarCustom extends StatefulWidget implements PreferredSizeWidget {
   final String route;
 
+  final AuthController _authController = Get.find();
   appBarCustom({this.route = ''});
 
   List<String> routesBlock = [
@@ -33,7 +34,7 @@ class appBarCustom extends StatefulWidget implements PreferredSizeWidget {
 }
 
 class _appBarState extends State<appBarCustom> {
-  final AuthController _authController = Get.find<AuthController>();
+  final AuthController _authController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -272,56 +273,47 @@ class CustomIconButtonRow extends StatelessWidget {
           )
         else
           InkWell(
-            onTap: () {},
+            onTap: () {
+              print(user!.avatarImageLink);
+            },
             child: PopupMenuButton(
-              offset: const Offset(0, 36),
-              itemBuilder: (BuildContext context) {
-                return <PopupMenuEntry>[
-                  PopupMenuItem(
-                    child: ListTile(
-                      leading: Icon(Icons.person_outline),
-                      title: Text(
-                        'Profile',
-                        style: Theme.of(context).textTheme.titleSmall,
+                offset: const Offset(0, 36),
+                itemBuilder: (BuildContext context) {
+                  return <PopupMenuEntry>[
+                    PopupMenuItem(
+                      child: ListTile(
+                        leading: Icon(Icons.person_outline),
+                        title: Text(
+                          'Profile',
+                          style: Theme.of(context).textTheme.titleSmall,
+                        ),
+                        onTap: () {
+                          // Go to it Profile
+                        },
                       ),
-                      onTap: () {
-                        // Go to it Profile
-                      },
                     ),
+                    PopupMenuItem(
+                      child: ListTile(
+                        leading: Icon(Icons.logout_outlined),
+                        title: Text(
+                          'Log out',
+                          style: Theme.of(context).textTheme.titleSmall,
+                        ),
+                        onTap: () {
+                          Get.find<AuthController>().logout();
+                        },
+                      ),
+                    ),
+                  ];
+                },
+                child: ClipOval(
+                  child: Image.network(
+                    user!.avatarImageLink,
+                    height: 32,
+                    width: 32,
+                    fit: BoxFit.fill,
                   ),
-                  PopupMenuItem(
-                    child: ListTile(
-                      leading: Icon(Icons.logout_outlined),
-                      title: Text(
-                        'Log out',
-                        style: Theme.of(context).textTheme.titleSmall,
-                      ),
-                      onTap: () {
-                        Get.find<AuthController>().logout();
-                      },
-                    ),
-                  ),
-                ];
-              },
-              child: user?.avatarImageLink != null &&
-                      user!.avatarImageLink.isNotEmpty
-                  ? ClipOval(
-                      child: Image.network(
-                        user!.avatarImageLink,
-                        height: 32,
-                        width: 32,
-                        fit: BoxFit.fill,
-                      ),
-                    )
-                  : ClipOval(
-                      child: Image.network(
-                        'https://firebasestorage.googleapis.com/v0/b/da2-2023.appspot.com/o/WebAssets%2FNewsletterClip.mp4?alt=media&token=755850c4-47fa-4f0e-a4b1-b7c47bc29f3c',
-                        height: 32,
-                        width: 32,
-                        fit: BoxFit.fill,
-                      ),
-                    ),
-            ),
+                )),
           ),
       ],
     );

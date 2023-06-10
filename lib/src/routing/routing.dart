@@ -1,3 +1,4 @@
+import 'package:da22023/src/common_models/product.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -17,7 +18,10 @@ import '../features/authentication/screens/sign_up/sign_up.dart';
 import '../features/authentication/screens/forgot_password/forgot_password.dart';
 import '../features/authentication/screens/forgot_password/otp.dart';
 import '../features/authentication/screens/forgot_password/new_password.dart';
-import '../features/authentication/screens/new_profile/new_profile.dart';
+import '../features/authentication/screens/new_profile/new_profile_1.dart';
+import '../features/authentication/screens/new_profile/new_profile_2.dart';
+
+import '../features/shop/controllers/product_detail_controller.dart';
 
 class AppRoutes {
   static final pages = [
@@ -50,7 +54,11 @@ class AppRoutes {
     ),
     GetPage(
       name: '/new_profile',
-      page: () => NewProfileScreen(userId: ''),
+      page: () => NewProfile1Screen(),
+    ),
+     GetPage(
+      name: '/new_profile_2',
+      page: () => NewProfile2Screen(),
     ),
 
     //SHOP
@@ -63,6 +71,9 @@ class AppRoutes {
     GetPage(
       name: '/product_detail',
       page: () => ProductDetailScreen(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut<ProductDetailController>(() => ProductDetailController());
+      }),
     ),
 
     //ABOUT US
@@ -76,7 +87,5 @@ class AppRoutes {
       name: '/blog',
       page: () => BlogScreen(),
     ),
-
-
   ];
 }

@@ -7,11 +7,11 @@ class CartController extends GetxController {
 
   Map<String, int> get cartItems => _cartItems;
 
-  void addToCart(Product product) {
-    if (_cartItems.containsKey(product.id)) {
-      _cartItems[product.id] = _cartItems[product.id]! + 1;
+  void addToCart(ProductFirebase product) {
+    if (_cartItems.containsKey(product.uid)) {
+      _cartItems[product.uid] = _cartItems[product.uid]! + 1;
     } else {
-      _cartItems[product.id] = 1;
+      _cartItems[product.uid] = 1;
     }
   }
 
@@ -19,13 +19,13 @@ class CartController extends GetxController {
     _cartItems.remove(productId);
   }
 
-  double calculateTotalPrice(List<Product> products) {
+  double calculateTotalPrice(List<ProductFirebase> products) {
     double totalPrice = 0.0;
     for (var entry in _cartItems.entries) {
       String productId = entry.key;
       int quantity = entry.value;
-      Product product = products.firstWhere((p) => p.id == productId);
-      totalPrice += product.price * quantity;
+      ProductFirebase product = products.firstWhere((p) => p.uid == productId);
+      // totalPrice += product.price * quantity;
     }
     return totalPrice;
   }

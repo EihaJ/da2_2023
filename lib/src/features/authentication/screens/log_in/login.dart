@@ -153,7 +153,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       const SizedBox(height: 32.0),
                       CTAButton(
-                        onPressed: () {_authController.loginWithEmailAndPassword(_email.value, _password.value);},
+                        onPressed: () {
+                          _authController.loginWithEmailAndPassword(
+                              _email.value, _password.value);
+                        },
                         text: "LOGIN",
                         buttonType: ButtonType.secondary,
                         buttonWidth: ButtonWidth.fill,

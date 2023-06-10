@@ -7,7 +7,7 @@ import '../../../utilities/theme.dart';
 import '../controllers/cart_controller.dart';
 
 class CartCard extends StatelessWidget {
-  final Product product;
+  final ProductFirebase product;
 
   const CartCard({required this.product});
 
@@ -22,7 +22,7 @@ class CartCard extends StatelessWidget {
         children: [
           Stack(
             children: [
-              Image.network(product.mainImage),
+              Image.network(product.image),
               Positioned(
                 top: 2,
                 right: 8,
@@ -74,16 +74,16 @@ class CartCard extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Price: \$${product.price.toStringAsFixed(2)}'),
-                    AdjustableQuantity(
-                      onChanged: (int quantity) {
-                        // Handle quantity change here
-                      },
-                      textSize: 14,
-                      buttonSize: 24,
-                      iconSize: 16,
-                      distance: 12,
-                    ),
+                    // Text('Price: \$${product.version.price.toStringAsFixed(2)}'),
+                    // AdjustableQuantity(
+                    //   onChanged: (int quantity) {
+                    //     // Handle quantity change here
+                    //   },
+                    //   textSize: 14,
+                    //   buttonSize: 24,
+                    //   iconSize: 16,
+                    //   distance: 12,
+                    // ),
                   ],
                 ),
               ],

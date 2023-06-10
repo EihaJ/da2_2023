@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import '../../../common_models/product.dart';
 
 class ProductCard extends StatelessWidget {
-  final Product product;
+  final ProductFirebase product;
 
   ProductCard({required this.product});
 
@@ -14,9 +14,7 @@ class ProductCard extends StatelessWidget {
       onTap: () {
         Get.toNamed(
           '/product_detail',
-          arguments: {
-            'product': product.toJson(),
-          },
+          arguments: product,
         );
         print('Product tapped: ${product.productName}');
       },
@@ -38,12 +36,12 @@ class ProductCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Image.network(
-                product.mainImage ,
+                product.image,
                 fit: BoxFit.contain,
               ),
               const SizedBox(height: 8),
               Text(
-                product.productName ,
+                product.productName,
                 style: Theme.of(context).textTheme.titleLarge,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
@@ -82,12 +80,13 @@ class ProductCard extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Text(
-                    '\$${product.price}',
-                    style: Theme.of(context).textTheme.titleLarge,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
-                  ),
+                //  for(int i = 0, i < product.versions.asMap().length, )
+                //   Text(
+                //     '\$${product.versions.}',
+                //     style: Theme.of(context).textTheme.titleLarge,
+                //     overflow: TextOverflow.ellipsis,
+                //     maxLines: 1,
+                //   ),
                 ],
               ),
             ],

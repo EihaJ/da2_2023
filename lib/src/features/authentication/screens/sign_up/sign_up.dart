@@ -3,7 +3,9 @@ import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../../../common_models/user.dart';
-import '../new_profile/new_profile.dart';
+import '../new_profile/new_profile_1.dart';
+
+import '../../controllers/auth_controller.dart';
 
 import '../../../../constants/image_strings.dart';
 import '../../../../constants/colors.dart';
@@ -20,6 +22,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   late String _email;
   late String _password;
   late String _confirmPassword;
+  final AuthController _authController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -162,11 +165,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 phoneNumber: '',
                                 emailAddress: _email,
                                 password: _password,
+                                addressNumber: 0,
                               ).create();
-                              Get.off(NewProfileScreen(
-                                userId: userCredential.user!.uid,
-                              ));
+                              _authController.signUpUpdate(userCredential);
+                              print(_authController);
                               print('Sign up success');
+                              Get.offAndToNamed('/new_profile');
                             } catch (e) {
                               print('Error creating user: $e');
                               // Handle the error gracefully

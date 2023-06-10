@@ -50,7 +50,22 @@ class AuthController extends GetxController {
       } else {
         print("User not found");
       }
-        print('uid: ${uid}');
+      print('uid: ${uid}');
+    } catch (e) {
+      print("Error logging in: $e");
+    }
+  }
+
+  void signUpUpdate(UserCredential userCredential) async {
+    try {
+      UserFirebase? user =
+          await UserFirebase.getUserById(userCredential.user!.uid);
+      if (user != null) {
+        authenticatedUser.value = user;
+      } else {
+        print("User not found");
+      }
+      print('uid: ${uid}');
     } catch (e) {
       print("Error logging in: $e");
     }

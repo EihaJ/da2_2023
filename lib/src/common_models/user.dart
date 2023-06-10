@@ -13,6 +13,7 @@ class UserFirebase {
   String phoneNumber;
   String emailAddress;
   String password;
+  int addressNumber;
 
   UserFirebase({
     required this.uid,
@@ -24,12 +25,14 @@ class UserFirebase {
     required this.phoneNumber,
     required this.emailAddress,
     required this.password,
+    required this.addressNumber,
   });
 
   factory UserFirebase.fromSnapshot(Map<String, dynamic>? data, String uid) {
     data ??= {}; // Set default value for nullable data
     try {
       return UserFirebase(
+
         uid: uid,
         name: data['name'] ?? '',
         role: data['role'],
@@ -39,6 +42,7 @@ class UserFirebase {
         phoneNumber: data['phoneNumber'] ?? '',
         emailAddress: data['emailAddress'] ?? '',
         password: data['password'] ?? '',
+        addressNumber: data['addressNumber'] ?? 0,
       );
     } catch (e) {
       // Handle the error here
@@ -54,6 +58,7 @@ class UserFirebase {
         phoneNumber: '',
         emailAddress: '',
         password: '',
+        addressNumber: 0,
       );
     }
   }
@@ -69,6 +74,7 @@ class UserFirebase {
       'phoneNumber': phoneNumber,
       'emailAddress': emailAddress,
       'password': password,
+      'addressNumber': addressNumber,
     };
   }
 

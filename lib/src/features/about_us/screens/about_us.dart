@@ -42,7 +42,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
       appBar: appBarCustom(
         route: "/",
       ),
-      endDrawer: CartDrawer(),
+      // endDrawer: CartDrawer(),
       body: SafeArea(
         child: Flex(
           direction: Axis.vertical,
