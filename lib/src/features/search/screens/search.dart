@@ -1,12 +1,14 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:da22023/src/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../common_widgets/text_field.dart';
+import '../../../constants/colors.dart';
 
 import '../controllers/search_controller.dart';
+
+import '../widgets/search_tile.dart';
 
 class SearchScreen extends StatelessWidget {
   final controller = Get.put(SearchController());
@@ -26,15 +28,13 @@ class SearchScreen extends StatelessWidget {
           children: [
             TextField(
               onChanged: controller.search,
-              
               decoration: InputDecoration(
                 prefixIcon: Icon(
                   Icons.search_outlined,
-                  color: PrimaryColor1.withOpacity(0.7
-                  ),
+                  color: PrimaryColor1.withOpacity(0.7),
                 ),
                 hintText: 'Search...',
-                hintStyle: Theme.of(context).textTheme.bodyLarge,
+                hintStyle: Theme.of(context).textTheme.bodyText1,
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: PrimaryColor1),
                 ),
@@ -47,12 +47,9 @@ class SearchScreen extends StatelessWidget {
             Expanded(
               child: Obx(
                 () => ListView(
-                  children: controller.filteredBooks
+                  children: controller.filteredProducts
                       .map(
-                        (book) => ListTile(
-                          title: Text(book.title),
-                          subtitle: Text(book.author),
-                        ),
+                        (product) => SearchTile(product),
                       )
                       .toList(),
                 ),

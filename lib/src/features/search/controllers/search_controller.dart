@@ -1,21 +1,29 @@
 import 'package:get/get.dart';
-import '../models/search_controller.dart';
+import '../../../common_models/product.dart';
 
 class SearchController extends GetxController {
-  final books = [
-    Book('The Great Gatsby', 'F. Scott Fitzgerald'),
-    Book('To Kill a Mockingbird', 'Harper Lee'),
-    Book('1984', 'George Orwell'),
-    Book('Pride and Prejudice', 'Jane Austen'),
-  ];
-
   final searchText = ''.obs;
+  final _productsStream = Rx<List<ProductFirebase>>([]);
 
-  List<Book> get filteredBooks => books
-      .where((book) =>
-          book.title.toLowerCase().contains(searchText.value.toLowerCase()) ||
-          book.author.toLowerCase().contains(searchText.value.toLowerCase()))
+  List<ProductFirebase> get products => _productsStream.value;
+
+  List<ProductFirebase> get filteredProducts => products
+      .where((product) =>
+          product.productName.toLowerCase().contains(searchText.value.toLowerCase()) ||
+          product.artist.toLowerCase().contains(searchText.value.toLowerCase())||
+          product.brand.toLowerCase().contains(searchText.value.toLowerCase()))
+
       .toList();
+
+  @override
+  void onInit() {
+    super.onInit();
+    fetchProducts();
+  }
+
+  void fetchProducts() {
+    _productsStream.bindStream(ProductFirebase.getAllProducts());
+  }
 
   void search(String query) {
     searchText.value = query;
