@@ -6,6 +6,7 @@ import '../../../common_widgets/footer.dart';
 import '../../../common_widgets/appbar.dart';
 
 import '../../../common_models/product.dart';
+import '../../../common_models/policy.dart';
 
 import '../../homepage/widgets/productshowcase.dart';
 
@@ -13,15 +14,24 @@ import '../widgets/options_checkbox.dart';
 
 import '../controllers/product_detail_controller.dart';
 
-class ProductDetailScreen extends StatelessWidget {
+class ProductDetailScreen extends StatefulWidget {
+  @override
+  _ProductDetailScreenState createState() => _ProductDetailScreenState();
+}
+
+class _ProductDetailScreenState extends State<ProductDetailScreen> {
+  bool isExpanded = false;
+  bool isExpanded2 = false;
+  bool isExpanded3 = false;
+  PolicyFirebase? policy1;
+  PolicyFirebase? policy2;
+
   @override
   Widget build(BuildContext context) {
     final ProductFirebase product = Get.arguments as ProductFirebase;
     final ProductDetailController controller = Get.find();
+
     controller.init(product);
-    bool isExpanded = false;
-    bool isExpanded2 = false;
-    bool isExpanded3 = false;
 
     return SafeArea(
       child: Scaffold(
@@ -32,7 +42,8 @@ class ProductDetailScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 40),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 80, vertical: 40),
                 child: Column(
                   children: [
                     Row(
@@ -52,11 +63,38 @@ class ProductDetailScreen extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
+                                InkResponse(
+                                  highlightColor: Colors.black.withOpacity(0),
+                                  hoverColor: Colors.black.withOpacity(0),
+                                  enableFeedback: false,
+                                  onTap: () {
+                                    Get.back();
+                                  },
+                                  child: Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.arrow_back,
+                                        size: 28,
+                                        color: Colors.black,
+                                      ),
+                                      const SizedBox(
+                                        width: 4,
+                                      ),
+                                      Text(
+                                        'Back',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyLarge,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(height: 8),
                                 Text(
                                   '${product.artist} : ${product.productName}',
                                   style: Theme.of(context)
                                       .textTheme
-                                      .headlineMedium
+                                      .headlineSmall
                                       ?.copyWith(
                                           color: Colors.black,
                                           fontWeight: FontWeight.w400),
@@ -87,7 +125,9 @@ class ProductDetailScreen extends StatelessWidget {
                                   color: Colors.black,
                                 ),
                                 const SizedBox(height: 16),
-                                OptionsCheckbox(),
+                                OptionsCheckbox(
+                                  product: product,
+                                ),
                                 const SizedBox(height: 16),
                                 Row(
                                   children: [
@@ -108,16 +148,15 @@ class ProductDetailScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const SizedBox(
-                      height: 16,
-                    ),
+                    const SizedBox(height: 40),
                     InkResponse(
                       child: isExpanded == false
                           ? Row(
                               children: [
                                 Text(
                                   'DESCRIPTION',
-                                  style: Theme.of(context).textTheme.headlineSmall,
+                                  style:
+                                      Theme.of(context).textTheme.headlineSmall,
                                 ),
                                 const Icon(Icons.arrow_drop_down_outlined)
                               ],
@@ -129,8 +168,9 @@ class ProductDetailScreen extends StatelessWidget {
                                   children: [
                                     Text(
                                       'DESCRIPTION',
-                                      style:
-                                          Theme.of(context).textTheme.headlineSmall,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headlineSmall,
                                     ),
                                     const Icon(Icons.arrow_drop_up_outlined)
                                   ],
@@ -141,24 +181,32 @@ class ProductDetailScreen extends StatelessWidget {
                                 Text(
                                   product.description,
                                   style: Theme.of(context).textTheme.bodyLarge,
-                                )
+                                ),
                               ],
                             ),
                       onTap: () {
-                        isExpanded = !isExpanded;
+                        setState(() {
+                          isExpanded = !isExpanded;
+                        });
                       },
                     ),
-                    const Divider(
-                      thickness: 1,
+                    const SizedBox(
+                      height: 4,
+                    ),
+                    Divider(
                       color: Colors.black,
+                    ),
+                    const SizedBox(
+                      height: 4,
                     ),
                     InkResponse(
                       child: isExpanded2 == false
                           ? Row(
                               children: [
                                 Text(
-                                  'SHIPPING',
-                                  style: Theme.of(context).textTheme.headlineSmall,
+                                  'SHIPPING POLICY',
+                                  style:
+                                      Theme.of(context).textTheme.headlineSmall,
                                 ),
                                 const Icon(Icons.arrow_drop_down_outlined)
                               ],
@@ -169,9 +217,10 @@ class ProductDetailScreen extends StatelessWidget {
                                 Row(
                                   children: [
                                     Text(
-                                      'SHIPPING',
-                                      style:
-                                          Theme.of(context).textTheme.headlineSmall,
+                                      'SHIPPING POLICY',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headlineSmall,
                                     ),
                                     const Icon(Icons.arrow_drop_up_outlined)
                                   ],
@@ -180,19 +229,30 @@ class ProductDetailScreen extends StatelessWidget {
                                   height: 8,
                                 ),
                                 Text(
-                                  // get shipping content from the product
-                                  product.description,
+                                  policy1?.policyContent ?? '',
                                   style: Theme.of(context).textTheme.bodyLarge,
                                 ),
                               ],
                             ),
                       onTap: () {
-                        isExpanded2 = !isExpanded2;
+                        setState(
+                          () {
+                            isExpanded2 = !isExpanded2;
+                            if (isExpanded2 && policy1 == null) {
+                              loadShippingPolicy(product.shippingPolicyID);
+                            }
+                          },
+                        );
                       },
                     ),
-                    const Divider(
-                      thickness: 1,
+                    const SizedBox(
+                      height: 4,
+                    ),
+                    Divider(
                       color: Colors.black,
+                    ),
+                    const SizedBox(
+                      height: 4,
                     ),
                     InkResponse(
                       child: isExpanded3 == false
@@ -200,7 +260,8 @@ class ProductDetailScreen extends StatelessWidget {
                               children: [
                                 Text(
                                   'RETURN POLICY',
-                                  style: Theme.of(context).textTheme.headlineSmall,
+                                  style:
+                                      Theme.of(context).textTheme.headlineSmall,
                                 ),
                                 const Icon(Icons.arrow_drop_down_outlined)
                               ],
@@ -212,8 +273,9 @@ class ProductDetailScreen extends StatelessWidget {
                                   children: [
                                     Text(
                                       'RETURN POLICY',
-                                      style:
-                                          Theme.of(context).textTheme.headlineSmall,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headlineSmall,
                                     ),
                                     const Icon(Icons.arrow_drop_up_outlined)
                                   ],
@@ -222,38 +284,64 @@ class ProductDetailScreen extends StatelessWidget {
                                   height: 8,
                                 ),
                                 Text(
-                                  product.description,
+                                  policy2?.policyContent ?? '',
                                   style: Theme.of(context).textTheme.bodyLarge,
-                                )
+                                ),
                               ],
                             ),
                       onTap: () {
-                        isExpanded3 = !isExpanded3;
+                        setState(() {
+                          isExpanded3 = !isExpanded3;
+                          if (isExpanded3 && policy2 == null) {
+                            loadReturnPolicy(product.returnPolicyID);
+                          }
+                        });
                       },
+                    ),
+                    const SizedBox(
+                      height: 40,
                     ),
                   ],
                 ),
               ),
-              Column(
-                children: [
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  Text(
-                    'RECOMMENDED FOR YOU',
-                    style: Theme.of(context).textTheme.titleLarge,
-                  ),
-                  ProductShowcase(),
-                ],
+              const SizedBox(
+                height: 4,
+              ),
+              Divider(
+                color: Colors.black,
               ),
               const SizedBox(
                 height: 16,
               ),
+              Text(
+                'OTHER PRODUCTS',
+                style: Theme.of(context)
+                    .textTheme
+                    .displayLarge
+                    ?.copyWith(color: Color.fromARGB(255, 33, 33, 33)),
+              ),
+              ProductShowcase(),
               WebsiteFooter(),
             ],
           ),
         ),
       ),
     );
+  }
+
+  void loadReturnPolicy(String policyId) {
+    PolicyFirebase.getPolicyById(policyId).then((loadedPolicy) {
+      setState(() {
+        policy2 = loadedPolicy;
+      });
+    });
+  }
+
+  void loadShippingPolicy(String policyId) {
+    PolicyFirebase.getPolicyById(policyId).then((loadedPolicy) {
+      setState(() {
+        policy1 = loadedPolicy;
+      });
+    });
   }
 }

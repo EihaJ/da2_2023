@@ -149,8 +149,8 @@ class _AdjustButtonState extends State<AdjustButton> {
               size: widget.iconSize,
               color: widget.buttonColor == Colors.black
                   ? _isPressed
-                      ? Colors.black
-                      : Colors.white
+                      ? Colors.white
+                      : Colors.black
                   : _isPressed
                       ? Colors.black
                       : Colors.white),

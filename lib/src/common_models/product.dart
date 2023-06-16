@@ -14,6 +14,12 @@ class ProductFirebase {
   String description;
   List<String> tags;
   double sale;
+  int numberVersion;
+  String shippingPolicy;
+  String returnPolicy;
+    String shippingPolicyID;
+  String returnPolicyID;
+  String changedTime;
 
   ProductFirebase({
     String? uid,
@@ -24,8 +30,14 @@ class ProductFirebase {
     required this.image,
     required this.artist,
     required this.featured,
+    required this.numberVersion,
+    required this.returnPolicy,
+    required this.shippingPolicy,
+        required this.returnPolicyID,
+    required this.shippingPolicyID,
     this.tags = const [],
     required this.sale,
+    required this.changedTime,
   }) : uid = uid ?? generateUid();
 
   factory ProductFirebase.fromSnapshot(Map<String, dynamic>? data, String uid) {
@@ -43,6 +55,12 @@ class ProductFirebase {
         artist: data['artist'] ?? '',
         tags: List<String>.from(data['tags'] ?? []),
         sale: data['sale'] ?? 0.0,
+        numberVersion: data['numberVersion'] ?? 0.0,
+        returnPolicy: data['returnPolicy'] ?? '',
+        shippingPolicy: data['shippingPolicy'] ?? '',
+        returnPolicyID: data['returnPolicyID'] ?? '',
+        shippingPolicyID: data['shippingPolicyID'] ?? '',
+        changedTime: data['changedTime'] ?? '',
       );
     } catch (e) {
       print('Error creating Product from snapshot: $e');
@@ -57,6 +75,12 @@ class ProductFirebase {
         artist: '',
         tags: [],
         sale: 0.0,
+        numberVersion: 0,
+        returnPolicy: '',
+        shippingPolicy: '',
+             returnPolicyID: '',
+        shippingPolicyID: '',
+        changedTime: '',
       );
     }
   }
@@ -72,7 +96,13 @@ class ProductFirebase {
       'artist': artist,
       'tags': tags,
       'featured': featured,
-      'sale':sale,
+      'sale': sale,
+      'numberVersion': numberVersion,
+      'returnPolicy': returnPolicy,
+      'shippingPolicy': shippingPolicy,
+            'returnPolicyID': returnPolicyID,
+      'shippingPolicyID': shippingPolicyID,
+      'changedTime': changedTime,
     };
   }
 
@@ -92,8 +122,21 @@ class ProductFirebase {
     await collection.doc(uid).delete();
   }
 
-  static Stream<List<ProductFirebase>> getAllProducts() {
+  static Stream<List<ProductFirebase>> getAllProducts(
+      {String? productNameFilter, String? brandNameFilter}) {
     final collection = FirebaseFirestore.instance.collection('products');
+
+    final collectionWithBrandFilter = FirebaseFirestore.instance
+        .collection('products')
+        .where('brand', isEqualTo: brandNameFilter);
+
+    if (brandNameFilter != null && brandNameFilter.isNotEmpty) {
+      return collectionWithBrandFilter.snapshots().map(
+            (querySnapshot) => querySnapshot.docs
+                .map((doc) => ProductFirebase.fromSnapshot(doc.data(), doc.id))
+                .toList(),
+          );
+    }
     return collection.snapshots().map(
           (querySnapshot) => querySnapshot.docs
               .map((doc) => ProductFirebase.fromSnapshot(doc.data(), doc.id))

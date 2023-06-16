@@ -2,7 +2,14 @@ import 'package:flutter/material.dart';
 
 import '../../../common_widgets/adjust_quantity.dart';
 
+import '../../../common_models/product.dart';
+
+
 class OptionsCheckbox extends StatefulWidget {
+  final ProductFirebase product;
+
+  OptionsCheckbox({required this.product});
+
   @override
   _OptionsCheckboxState createState() => _OptionsCheckboxState();
 }
@@ -13,26 +20,10 @@ class _OptionsCheckboxState extends State<OptionsCheckbox> {
 
   List<bool> _isClickedList = [];
 
-  List<String> buttonTitles = [
-    "Extended Playing",
-    "Long Playing",
-    "Standard Playing",
-    "Compact Disc",
-    // Add more button titles as needed
-  ];
-
-  List<double> buttonPrices = [
-    9.99,
-    14.99,
-    19.99,
-    24.99,
-    // Add corresponding prices for each button
-  ];
-
   @override
   void initState() {
     super.initState();
-    _isClickedList = List.generate(buttonTitles.length, (index) => false);
+    _isClickedList = List.generate(widget.product.versions.length, (index) => false);
     _isClickedList[_clickedIndex] = true; // Set the first checkbox as clicked
   }
 
@@ -68,12 +59,13 @@ class _OptionsCheckboxState extends State<OptionsCheckbox> {
             mainAxisSpacing: 8,
             crossAxisSpacing: 8,
           ),
-          itemCount: buttonTitles.length,
+          itemCount: widget.product.versions.length,
           itemBuilder: (context, index) {
+            final version = widget.product.versions[index];
             return CustomButton(
-              text: buttonTitles[index],
+              text: version.version,
               isClicked: _isClickedList[index],
-              price: buttonPrices[index],
+              price: version.price,
               onPressed: () {
                 _onButtonPressed(index);
                 // Handle button pressed action
@@ -89,8 +81,9 @@ class _OptionsCheckboxState extends State<OptionsCheckbox> {
             Text(
               'AMOUNT',
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  color: Colors.black.withOpacity(0.8),
-                  fontWeight: FontWeight.w300),
+                    color: Colors.black.withOpacity(0.8),
+                    fontWeight: FontWeight.w300,
+                  ),
             ),
             AdjustableQuantity(
               onChanged: _onNumberOfCopiesChanged,
@@ -108,14 +101,16 @@ class _OptionsCheckboxState extends State<OptionsCheckbox> {
             Text(
               'TOTAL PRICE:',
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  color: Colors.black.withOpacity(0.8),
-                  fontWeight: FontWeight.w300),
+                    color: Colors.black.withOpacity(0.8),
+                    fontWeight: FontWeight.w300,
+                  ),
             ),
             Text(
-              '\$${(_clickedIndex != -1 ? buttonPrices[_clickedIndex] * _numberOfCopies : 0.00).toStringAsFixed(2)}',
+              '\$${(_clickedIndex != -1 ? widget.product.versions[_clickedIndex].price * _numberOfCopies : 0.00).toStringAsFixed(2)}',
               style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                  color: Colors.black.withOpacity(0.8),
-                  fontWeight: FontWeight.w400),
+                    color: Colors.black.withOpacity(0.8),
+                    fontWeight: FontWeight.w400,
+                  ),
             ),
           ],
         ),
@@ -154,8 +149,9 @@ class CustomButton extends StatelessWidget {
           child: Text(
             text,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                color: !isClicked ?  Colors.black.withOpacity(0.8) :Colors.white,
-                fontWeight: FontWeight.w300),
+                  color: !isClicked ? Colors.black.withOpacity(0.8) : Colors.white,
+                  fontWeight: FontWeight.w300,
+                ),
           ),
         ),
       ),

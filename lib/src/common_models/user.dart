@@ -32,7 +32,6 @@ class UserFirebase {
     data ??= {}; // Set default value for nullable data
     try {
       return UserFirebase(
-
         uid: uid,
         name: data['name'] ?? '',
         role: data['role'],
@@ -86,10 +85,8 @@ class UserFirebase {
         email: emailAddress,
         password: password,
       );
-
       // Assign the user's uid to the UserFirebase object
       uid = userCredential.user!.uid;
-
       // Store user information in Firestore with the assigned uid
       await firestore.collection('users').doc(uid).set(toMap());
 

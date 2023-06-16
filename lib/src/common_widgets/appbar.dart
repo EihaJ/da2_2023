@@ -16,14 +16,6 @@ import '../features/cart/screens/cart.dart';
 import '../features/authentication/controllers/auth_controller.dart';
 
 class appBarCustom extends StatefulWidget implements PreferredSizeWidget {
-  final String route;
-
-  final AuthController _authController = Get.find();
-  appBarCustom({this.route = ''});
-
-  List<String> routesBlock = [
-    '/login',
-  ];
 
   @override
   _appBarState createState() => _appBarState();
@@ -38,60 +30,53 @@ class _appBarState extends State<appBarCustom> {
 
   @override
   Widget build(BuildContext context) {
-    bool shouldShowAppBar = !widget.routesBlock
-        .contains(widget.route); // Check if the route is in routesBlock list
-
-    return Opacity(
-      opacity: shouldShowAppBar == true ? 1 : 0,
-      child: Container(
-        alignment: AlignmentDirectional.topCenter,
-        width: double.infinity,
-        height: 72,
-        decoration: BoxDecoration(
-          color: Theme.of(context).canvasColor,
-          boxShadow: [
-            BoxShadow(
-              color: PrimaryColor1.withOpacity(0.1),
-              blurRadius: 8,
-              offset: Offset(0, 4),
-            ),
-          ],
-        ),
-        child: Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(80, 0, 80, 0),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                width: 100,
-                height: 50,
-                child: InkResponse(
-                  child: Image.asset(
-                    logo_black,
-                    width: 240,
-                    height: 100,
-                    fit: BoxFit.cover,
-                  ),
-                  onTap: () {
-                    Get.toNamed("/");
-                  },
-                ),
-              ),
-              CustomButtonRow(),
-              Obx(() {
-                final userID = _authController.uid.value;
-                final authenticatedUser =
-                    _authController.authenticatedUser.value;
-                final user = authenticatedUser as UserFirebase?;
-
-                return CustomIconButtonRow(
-                  userID: userID,
-                  user: user,
-                );
-              }),
-            ],
+    return Container(
+      alignment: AlignmentDirectional.topCenter,
+      width: double.infinity,
+      height: 72,
+      decoration: BoxDecoration(
+        color: Theme.of(context).canvasColor,
+        boxShadow: [
+          BoxShadow(
+            color: PrimaryColor1.withOpacity(0.1),
+            blurRadius: 8,
+            offset: Offset(0, 4),
           ),
+        ],
+      ),
+      child: Padding(
+        padding: EdgeInsetsDirectional.fromSTEB(80, 0, 80, 0),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              width: 100,
+              height: 50,
+              child: InkResponse(
+                child: Image.asset(
+                  logo_black,
+                  width: 240,
+                  height: 100,
+                  fit: BoxFit.cover,
+                ),
+                onTap: () {
+                  Get.toNamed("/");
+                },
+              ),
+            ),
+            CustomButtonRow(),
+            Obx(() {
+              final userID = _authController.uid.value;
+              final authenticatedUser = _authController.authenticatedUser.value;
+              final user = authenticatedUser as UserFirebase?;
+
+              return CustomIconButtonRow(
+                userID: userID,
+                user: user,
+              );
+            }),
+          ],
         ),
       ),
     );
@@ -277,43 +262,44 @@ class CustomIconButtonRow extends StatelessWidget {
               print(user!.avatarImageLink);
             },
             child: PopupMenuButton(
-                offset: const Offset(0, 36),
-                itemBuilder: (BuildContext context) {
-                  return <PopupMenuEntry>[
-                    PopupMenuItem(
-                      child: ListTile(
-                        leading: Icon(Icons.person_outline),
-                        title: Text(
-                          'Profile',
-                          style: Theme.of(context).textTheme.titleSmall,
-                        ),
-                        onTap: () {
-                          // Go to it Profile
-                        },
+              offset: const Offset(0, 36),
+              itemBuilder: (BuildContext context) {
+                return <PopupMenuEntry>[
+                  PopupMenuItem(
+                    child: ListTile(
+                      leading: Icon(Icons.person_outline),
+                      title: Text(
+                        'Profile',
+                        style: Theme.of(context).textTheme.titleSmall,
                       ),
+                      onTap: () {
+                        // Go to it Profile
+                      },
                     ),
-                    PopupMenuItem(
-                      child: ListTile(
-                        leading: Icon(Icons.logout_outlined),
-                        title: Text(
-                          'Log out',
-                          style: Theme.of(context).textTheme.titleSmall,
-                        ),
-                        onTap: () {
-                          Get.find<AuthController>().logout();
-                        },
-                      ),
-                    ),
-                  ];
-                },
-                child: ClipOval(
-                  child: Image.network(
-                    user!.avatarImageLink,
-                    height: 32,
-                    width: 32,
-                    fit: BoxFit.fill,
                   ),
-                )),
+                  PopupMenuItem(
+                    child: ListTile(
+                      leading: Icon(Icons.logout_outlined),
+                      title: Text(
+                        'Log out',
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
+                      onTap: () {
+                        Get.find<AuthController>().logout();
+                      },
+                    ),
+                  ),
+                ];
+              },
+              child: ClipOval(
+                child: Image.network(
+                  user!.avatarImageLink,
+                  height: 32,
+                  width: 32,
+                  fit: BoxFit.fill,
+                ),
+              ),
+            ),
           ),
       ],
     );

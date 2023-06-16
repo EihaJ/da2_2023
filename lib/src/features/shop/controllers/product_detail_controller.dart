@@ -9,5 +9,5 @@ class ProductDetailController extends GetxController {
     this.product = product;
   }
 
-  // Add any other controller logic or data manipulation here
+
 }

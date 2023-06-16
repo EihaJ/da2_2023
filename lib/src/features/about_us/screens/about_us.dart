@@ -40,7 +40,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appBarCustom(
-        route: "/",
+
       ),
       // endDrawer: CartDrawer(),
       body: SafeArea(

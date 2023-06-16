@@ -71,7 +71,7 @@ class _ShopScreenState extends State<ShopScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appBarCustom(
-        route: "/",
+
       ),
       // endDrawer: CartDrawer(),
       body: SafeArea(
@@ -82,45 +82,78 @@ class _ShopScreenState extends State<ShopScreen> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 80),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     InkResponse(
-                      onTap: () {},
-                      child: Row(
-                        children: [
-                          const Icon(
-                            Icons.filter_alt_outlined,
-                            size: 28,
-                            color: Colors.black,
-                          ),
-                          Text(
-                            'Filter',
-                            style: Theme.of(context).textTheme.bodyLarge,
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 24,
-                    ),
-                    InkResponse(
                       onTap: () {
-                        print('search');
-                        Get.dialog(SearchScreen());
+                        Get.back();
                       },
                       child: Row(
                         children: [
                           const Icon(
-                            Icons.search,
+                            Icons.arrow_back,
                             size: 28,
                             color: Colors.black,
                           ),
+                          const SizedBox(
+                            width: 2,
+                          ),
                           Text(
-                            'Search',
+                            'Back',
                             style: Theme.of(context).textTheme.bodyLarge,
                           ),
                         ],
                       ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        InkResponse(
+                          onTap: () {
+                            //Get Dialog Filter
+                          },
+                          child: Row(
+                            children: [
+                              const Icon(
+                                Icons.filter_alt_outlined,
+                                size: 28,
+                                color: Colors.black,
+                              ),
+                              const SizedBox(
+                                width: 2,
+                              ),
+                              Text(
+                                'Filter',
+                                style: Theme.of(context).textTheme.bodyLarge,
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 24,
+                        ),
+                        InkResponse(
+                          onTap: () {
+                            Get.dialog(SearchScreen());
+                          },
+                          child: Row(
+                            children: [
+                              const Icon(
+                                Icons.search,
+                                size: 28,
+                                color: Colors.black,
+                              ),
+                              const SizedBox(
+                                width: 2,
+                              ),
+                              Text(
+                                'Search',
+                                style: Theme.of(context).textTheme.bodyLarge,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
