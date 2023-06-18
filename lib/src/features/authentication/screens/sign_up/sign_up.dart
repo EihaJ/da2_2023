@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../../../common_models/user.dart';
+import '../../../../common_models/cart.dart';
+
 import '../new_profile/new_profile_1.dart';
 
 import '../../controllers/auth_controller.dart';
@@ -157,7 +159,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               UserCredential userCredential =
                                   await UserFirebase(
                                 role: 'user',
-                                uid: '',
+                                uid: '', // Remove this line
                                 name: '',
                                 age: 0,
                                 avatarImageLink: '',
@@ -167,9 +169,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 password: _password,
                                 addressNumber: 0,
                               ).create();
+
+                              CartFirebase cartFirebase = await CartFirebase(
+                                uid: userCredential.user?.uid,
+                                changedTime:
+                                    '${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year} ${DateTime.now().hour}:${DateTime.now().minute}',
+                              ).create();
+
                               _authController.signUpUpdate(userCredential);
-                              print(_authController);
-                              print('Sign up success');
                               Get.offAndToNamed('/new_profile');
                             } catch (e) {
                               print('Error creating user: $e');

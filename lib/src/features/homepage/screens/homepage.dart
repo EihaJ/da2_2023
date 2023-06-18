@@ -26,7 +26,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appBarCustom(),
-      // endDrawer: CartDrawer(),
+      endDrawer: CartDrawer(cartController: _cartController,),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(

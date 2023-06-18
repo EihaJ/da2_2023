@@ -1,3 +1,5 @@
+import 'package:da22023/src/features/authentication/controllers/auth_controller.dart';
+import 'package:da22023/src/features/cart/controllers/cart_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -7,6 +9,10 @@ import '../../../common_widgets/appbar.dart';
 
 import '../../../common_models/product.dart';
 import '../../../common_models/policy.dart';
+import '../../../common_models/cart.dart';
+import '../../../common_models/cart_product.dart';
+
+import '../../cart/screens/cart.dart';
 
 import '../../homepage/widgets/productshowcase.dart';
 
@@ -26,16 +32,24 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   PolicyFirebase? policy1;
   PolicyFirebase? policy2;
 
+  RxString versionName = ''.obs;
+  RxDouble versionPrice = 0.0.obs;
+  List<Rx<CartProduct>> _cartProduct = [];
+
   @override
   Widget build(BuildContext context) {
     final ProductFirebase product = Get.arguments as ProductFirebase;
     final ProductDetailController controller = Get.find();
+    final CartController _cartController = Get.find();
+
+    final AuthController _authController = Get.find();
 
     controller.init(product);
 
     return SafeArea(
       child: Scaffold(
         appBar: appBarCustom(),
+        endDrawer: CartDrawer(cartController: _cartController),
         body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -127,6 +141,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                 const SizedBox(height: 16),
                                 OptionsCheckbox(
                                   product: product,
+                                  versionName: versionName,
+                                  versionPrice: versionPrice,
                                 ),
                                 const SizedBox(height: 16),
                                 Row(
@@ -136,7 +152,47 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                       text: 'BUY NOW',
                                     ),
                                     CTAButton(
-                                      onPressed: () {},
+                                      onPressed: () async {
+                                        print(
+                                            'versionName: $versionName, versionPrice: $versionPrice');
+                                        final cartProduct = CartProduct(
+                                          productUID: product.uid,
+                                          productName: product.productName,
+                                          productImage: product.image,
+                                          versionName: versionName.value,
+                                          price: versionPrice.value,
+                                          stock: 0,
+                                          amount: 1,
+                                        );
+
+                                        final cartId =
+                                            _authController.uid.toString();
+                                        final cart =
+                                            await CartFirebase.getCartByUserUID(
+                                                cartId);
+
+                                        if (cart != null) {
+                                          // If the cart exists, update the cart with the new product
+                                          cart.cartProducts.add(cartProduct);
+                                          await cart.update();
+                                        } else {
+                                          // If the cart doesn't exist, create a new cart and add the product
+                                          final newCart = CartFirebase(
+                                            uid: cartId,
+                                            cartProducts: [cartProduct],
+                                            changedTime:
+                                                '${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year} ${DateTime.now().hour}:${DateTime.now().minute}',
+                                          );
+                                          await newCart.create();
+                                        }
+
+                                        print('Product added successfully');
+
+                                        // Clear input fields
+
+                                        // Close the dialog
+                                        Get.back();
+                                      },
                                       text: 'ADD TO CART',
                                       buttonType: ButtonType.secondary,
                                     )

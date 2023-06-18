@@ -17,7 +17,7 @@ class ProductFirebase {
   int numberVersion;
   String shippingPolicy;
   String returnPolicy;
-    String shippingPolicyID;
+  String shippingPolicyID;
   String returnPolicyID;
   String changedTime;
 
@@ -33,7 +33,7 @@ class ProductFirebase {
     required this.numberVersion,
     required this.returnPolicy,
     required this.shippingPolicy,
-        required this.returnPolicyID,
+    required this.returnPolicyID,
     required this.shippingPolicyID,
     this.tags = const [],
     required this.sale,
@@ -78,7 +78,7 @@ class ProductFirebase {
         numberVersion: 0,
         returnPolicy: '',
         shippingPolicy: '',
-             returnPolicyID: '',
+        returnPolicyID: '',
         shippingPolicyID: '',
         changedTime: '',
       );
@@ -100,7 +100,7 @@ class ProductFirebase {
       'numberVersion': numberVersion,
       'returnPolicy': returnPolicy,
       'shippingPolicy': shippingPolicy,
-            'returnPolicyID': returnPolicyID,
+      'returnPolicyID': returnPolicyID,
       'shippingPolicyID': shippingPolicyID,
       'changedTime': changedTime,
     };
