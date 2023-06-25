@@ -38,6 +38,8 @@ class _CartDrawerState extends State<CartDrawer> {
     setState(() {
       _cart = cartData;
     });
+    widget.totalPrice.value =
+        widget.cartController.calculateTotalPrice(_cart!.cartProducts).toInt();
   }
 
   @override
@@ -119,18 +121,23 @@ class _CartDrawerState extends State<CartDrawer> {
                                   top: 2,
                                   right: 8,
                                   child: InkWell(
-                                    onTap: () async {
-                                      widget.cartController.removeFromCart(
-                                        cartProduct.productUID,
-                                        cartProduct.versionName,
-                                      );
+                                    onTap: () {
+                                      setState(() async {
+                                        final cartId =
+                                            _authController.uid.toString();
+                                        final cart =
+                                            await CartFirebase.getCartByUserUID(
+                                                cartId);
 
-                                      await _cart!.update();
-                                      widget.totalPrice.value = widget
-                                          .cartController
-                                          .calculateTotalPrice(
-                                              _cart!.cartProducts)
-                                          .toInt();
+                                        cart!.cartProducts.removeAt(index);
+                                        await cart.update();
+                                        loadCart();
+                                        widget.totalPrice.value = widget
+                                            .cartController
+                                            .calculateTotalPrice(
+                                                _cart!.cartProducts)
+                                            .toInt();
+                                      });
                                     },
                                     child: Container(
                                       height: 32,

@@ -9,15 +9,13 @@ class CustomTextField extends StatefulWidget {
   final TextFieldWidth textFieldWidth;
   final double width;
 
-
   CustomTextField({
     required this.onChanged,
     this.labelText = '',
-    this.obscureText = false,   
+    this.obscureText = false,
     this.textFieldType = TextFieldType.black,
     this.textFieldWidth = TextFieldWidth.value,
     this.width = 320,
-
   });
 
   @override
@@ -36,10 +34,13 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      
-      width: widget.textFieldWidth == TextFieldWidth.value ? widget.width : double.infinity,
+      width: widget.textFieldWidth == TextFieldWidth.value
+          ? widget.width
+          : double.infinity,
       child: TextFormField(
-        style: widget.textFieldType != TextFieldType.black ? TextStyle(color: Colors.white): TextStyle(color: Colors.black),
+        style: widget.textFieldType != TextFieldType.black
+            ? TextStyle(color: Colors.white)
+            : TextStyle(color: Colors.black),
         controller: _controller,
         // ignore: prefer_const_constructors
         decoration: widget.textFieldType == TextFieldType.black

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class AdjustableQuantity extends StatefulWidget {
   final ValueChanged<int> onChanged;
-  final int? initialValue;
+  final int initialValue;
   final double buttonSize;
   final double iconSize;
   final double textSize;
@@ -12,7 +12,7 @@ class AdjustableQuantity extends StatefulWidget {
   const AdjustableQuantity(
       {Key? key,
       required this.onChanged,
-      this.initialValue,
+      required this.initialValue,
       this.textSize = 20,
       this.buttonSize = 32,
       this.iconSize = 20,

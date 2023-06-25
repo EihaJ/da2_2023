@@ -47,7 +47,7 @@ class CartFirebase {
     final CollectionReference cartsCollection =
         FirebaseFirestore.instance.collection('carts');
     await cartsCollection.doc(uid).set(toMap());
-    return this; // Return the created cart
+    return this;
   }
 
   Future<void> update() async {
@@ -83,16 +83,15 @@ class CartFirebase {
   }
 
   static Future<CartFirebase?> getCartByUserUID(String userUID) async {
-  final collection = FirebaseFirestore.instance.collection('carts');
-  final query = collection.where('uid', isEqualTo: userUID);
-  final snapshot = await query.get();
-  if (snapshot.docs.isNotEmpty) {
-    final cartData = snapshot.docs.first.data();
-    final cartId = snapshot.docs.first.id;
-    return CartFirebase.fromSnapshot(cartData, cartId);
-  } else {
-    return null;
+    final collection = FirebaseFirestore.instance.collection('carts');
+    final query = collection.where('uid', isEqualTo: userUID);
+    final snapshot = await query.get();
+    if (snapshot.docs.isNotEmpty) {
+      final cartData = snapshot.docs.first.data();
+      final cartId = snapshot.docs.first.id;
+      return CartFirebase.fromSnapshot(cartData, cartId);
+    } else {
+      return null;
+    }
   }
-}
-
 }

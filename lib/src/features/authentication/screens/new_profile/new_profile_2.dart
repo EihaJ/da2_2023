@@ -108,6 +108,7 @@ class _NewProfile2ScreenState extends State<NewProfile2Screen> {
                             AdjustableQuantity(
                               onChanged: _onNumberOfAddressChanged,
                               themeColor: Colors.white,
+                              initialValue: _addressNumber,
                             ),
                           ],
                         ),
@@ -119,18 +120,17 @@ class _NewProfile2ScreenState extends State<NewProfile2Screen> {
                             UserFirebase? userFirebase1 =
                                 await UserFirebase.getUserById(
                                     _authController.uid.toString());
-                            print(_address);
+
                             UserFirebase userFirebase = UserFirebase(
                               uid: _authController.authenticatedUser.value!.uid,
-                              name:
-                                  userFirebase1!.name,
+                              name: userFirebase1!.name,
                               role: 'user',
-                              age:  userFirebase1.age,
-                              avatarImageLink:  userFirebase1.avatarImageLink,
+                              age: userFirebase1.age,
+                              avatarImageLink: userFirebase1.avatarImageLink,
                               addresses: _address
                                   .map((address) => address.value)
                                   .toList(),
-                              phoneNumber:  userFirebase1.phoneNumber,
+                              phoneNumber: userFirebase1.phoneNumber,
                               emailAddress: _authController
                                   .authenticatedUser.value!.emailAddress,
                               password: _authController
@@ -140,7 +140,6 @@ class _NewProfile2ScreenState extends State<NewProfile2Screen> {
 
                             try {
                               await userFirebase.update();
-
                               Get.offAndToNamed('/');
                             } catch (error) {
                               print(

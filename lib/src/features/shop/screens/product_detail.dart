@@ -26,9 +26,9 @@ class ProductDetailScreen extends StatefulWidget {
 }
 
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
-  bool isExpanded = false;
-  bool isExpanded2 = false;
-  bool isExpanded3 = false;
+  bool isExpanded = true;
+  bool isExpanded2 = true;
+  bool isExpanded3 = true;
   PolicyFirebase? policy1;
   PolicyFirebase? policy2;
 
@@ -185,12 +185,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                           );
                                           await newCart.create();
                                         }
-
-                                        print('Product added successfully');
-
-                                        // Clear input fields
-
-                                        // Close the dialog
                                         Get.back();
                                       },
                                       text: 'ADD TO CART',

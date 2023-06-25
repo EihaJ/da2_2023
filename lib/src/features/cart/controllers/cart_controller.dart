@@ -33,23 +33,15 @@ class CartController extends GetxController {
   final AuthController _authController = Get.find();
   RxDouble totalPrice = 0.0.obs;
 
-  void addToCart(ProductFirebase product, String version) {
-    final userUID = _authController.uid;
-    final cartItemKey =
-        '$userUID|${product.uid}'; // Combine user UID and product UID as the key
-    if (!_cartItems.containsKey(cartItemKey)) {
-      _cartItems[cartItemKey] = <String, int>{};
-    }
-    if (!_cartItems[cartItemKey]!.containsKey(version)) {
-      _cartItems[cartItemKey]![version] = 0;
-    }
-    _cartItems[cartItemKey]![version] = _cartItems[cartItemKey]![version]! + 1;
-  }
 
   void removeFromCart(String productUID, String version) {
+    print('delete object');
     final userUID = _authController.uid;
     final cartItemKey =
         '$userUID|$productUID'; // Combine user UID and product UID as the key
+    print('userUID: $userUID');
+    print('cartItemKey: $cartItemKey');
+    print('cartItem: $_cartItems');
     if (_cartItems.containsKey(cartItemKey)) {
       _cartItems[cartItemKey]!.remove(version);
       if (_cartItems[cartItemKey]!.isEmpty) {

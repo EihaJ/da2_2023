@@ -210,11 +210,11 @@ class _NewProfile1ScreenState extends State<NewProfile1Screen> {
                                   .authenticatedUser.value!.emailAddress,
                               password: _authController
                                   .authenticatedUser.value!.password,
-                              addressNumber: 0,
+                              addressNumber: 1,
                             );
-
                             try {
                               await userFirebase.update();
+                              print(_authController);
                               Get.toNamed('/new_profile_2');
                             } catch (error) {
                               print(

@@ -28,7 +28,8 @@ class _OptionsCheckboxState extends State<OptionsCheckbox> {
   @override
   void initState() {
     super.initState();
-    _isClickedList = List.generate(widget.product.versions.length, (index) => false);
+    _isClickedList =
+        List.generate(widget.product.versions.length, (index) => false);
     _isClickedList[_clickedIndex] = true; // Set the first checkbox as clicked
   }
 
@@ -90,9 +91,9 @@ class _OptionsCheckboxState extends State<OptionsCheckbox> {
             Text(
               'AMOUNT',
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                color: Colors.black.withOpacity(0.8),
-                fontWeight: FontWeight.w300,
-              ),
+                    color: Colors.black.withOpacity(0.8),
+                    fontWeight: FontWeight.w300,
+                  ),
             ),
             AdjustableQuantity(
               onChanged: _onNumberOfCopiesChanged,
@@ -110,17 +111,17 @@ class _OptionsCheckboxState extends State<OptionsCheckbox> {
             Text(
               'TOTAL PRICE:',
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                color: Colors.black.withOpacity(0.8),
-                fontWeight: FontWeight.w300,
-              ),
+                    color: Colors.black.withOpacity(0.8),
+                    fontWeight: FontWeight.w300,
+                  ),
             ),
             Obx(() => Text(
-              '\$${(_clickedIndex != -1 ? (widget.versionPrice.value * _numberOfCopies) : 0.00).toStringAsFixed(2)}',
-              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                color: Colors.black.withOpacity(0.8),
-                fontWeight: FontWeight.w400,
-              ),
-            )),
+                  '\$${(_clickedIndex != -1 ? (widget.versionPrice.value * _numberOfCopies) : 0.00).toStringAsFixed(2)}',
+                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                        color: Colors.black.withOpacity(0.8),
+                        fontWeight: FontWeight.w400,
+                      ),
+                )),
           ],
         ),
       ],
@@ -158,9 +159,10 @@ class CustomButton extends StatelessWidget {
           child: Text(
             text,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
-              color: !isClicked ? Colors.black.withOpacity(0.8) : Colors.white,
-              fontWeight: FontWeight.w300,
-            ),
+                  color:
+                      !isClicked ? Colors.black.withOpacity(0.8) : Colors.white,
+                  fontWeight: FontWeight.w300,
+                ),
           ),
         ),
       ),
