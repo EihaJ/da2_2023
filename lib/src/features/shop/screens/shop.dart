@@ -70,10 +70,10 @@ class _ShopScreenState extends State<ShopScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBarCustom(
-
+      appBar: appBarCustom(),
+      endDrawer: CartDrawer(
+        cartController: _cartController,
       ),
-      // endDrawer: CartDrawer(),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.only(top: 40),

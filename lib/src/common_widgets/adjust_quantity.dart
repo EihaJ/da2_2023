@@ -30,7 +30,7 @@ class _AdjustableQuantityState extends State<AdjustableQuantity> {
   @override
   void initState() {
     super.initState();
-    _quantity = widget.initialValue!.toInt();
+    _quantity = widget.initialValue.toInt();
   }
 
   void _incrementQuantity() {

@@ -1,3 +1,4 @@
+import 'package:da22023/src/features/check_out/screens/check_out.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -281,7 +282,8 @@ class _CartDrawerState extends State<CartDrawer> {
                   ),
                   CTAButton(
                     onPressed: () {
-                      // You can access the list of products using _cart!.cartProducts
+                      Get.dialog(CheckOutScreen(
+                          cartController: widget.cartController));
                     },
                     text: 'CHECK OUT',
                     buttonWidth: ButtonWidth.fill,

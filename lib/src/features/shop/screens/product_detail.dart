@@ -27,8 +27,8 @@ class ProductDetailScreen extends StatefulWidget {
 
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
   bool isExpanded = true;
-  bool isExpanded2 = true;
-  bool isExpanded3 = true;
+  bool isExpanded2 = false;
+  bool isExpanded3 = false;
   PolicyFirebase? policy1;
   PolicyFirebase? policy2;
 

@@ -23,6 +23,9 @@ import '../features/authentication/screens/new_profile/new_profile_2.dart';
 
 import '../features/shop/controllers/product_detail_controller.dart';
 
+import '../features/check_out/screens/check_out.dart';
+import '../features/cart/controllers/cart_controller.dart';
+
 class AppRoutes {
   static final pages = [
     //HOMEPAGE
@@ -56,7 +59,7 @@ class AppRoutes {
       name: '/new_profile',
       page: () => NewProfile1Screen(),
     ),
-     GetPage(
+    GetPage(
       name: '/new_profile_2',
       page: () => NewProfile2Screen(),
     ),
@@ -87,5 +90,7 @@ class AppRoutes {
       name: '/blog',
       page: () => BlogScreen(),
     ),
+
+    //CHECKOUT
   ];
 }
