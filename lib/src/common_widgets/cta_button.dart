@@ -9,6 +9,7 @@ class CTAButton extends StatelessWidget {
   final Icon leadIconName;
   final TailIcon tailIcon;
   final Icon tailIconName;
+  double? width;
 
   CTAButton({
     required this.onPressed,
@@ -16,19 +17,23 @@ class CTAButton extends StatelessWidget {
     this.buttonType = ButtonType.primary,
     this.buttonWidth = ButtonWidth.fixed,
     this.leadIcon = LeadIcon.hide,
-    this.leadIconName = const Icon(Icons.abc),
+    this.leadIconName = const Icon(
+      Icons.abc,
+    ),
     this.tailIcon = TailIcon.hide,
     this.tailIconName = const Icon(Icons.person),
-  })  : assert(validLeadIcons.contains(leadIcon)),
-        assert(validTailIcons.contains(tailIcon));
+    this.width,
+  });
 
   @override
   Widget build(BuildContext context) {
-    Color backgroundColor =
-        buttonType == ButtonType.primary ? Colors.black : Colors.white;
-    Color textColor = buttonType == ButtonType.primary
-        ? Colors.white
-        : Theme.of(context).primaryColor;
+    Color backgroundColor = buttonType == ButtonType.primary
+        ? Colors.black
+        : buttonType == ButtonType.secondary
+            ? Colors.white
+            : Colors.grey;
+    Color textColor =
+        buttonType == ButtonType.secondary ? Colors.black : Colors.white;
 
     return InkResponse(
       splashColor: Colors.transparent,
@@ -36,10 +41,16 @@ class CTAButton extends StatelessWidget {
       onTap: onPressed,
       child: Container(
         height: 48,
-        width: buttonWidth == ButtonWidth.fixed ? 320 : double.infinity,
+        width: buttonWidth == ButtonWidth.fixed
+            ? width != null
+                ? width
+                : 320
+            : double.infinity,
         decoration: BoxDecoration(
           color: backgroundColor,
-          border: Border.all(),
+          border: buttonType == ButtonType.disable
+              ? Border.all(color: Colors.black.withOpacity(0))
+              : Border.all(),
         ),
         child: Center(
           child: Row(
@@ -52,9 +63,9 @@ class CTAButton extends StatelessWidget {
               Text(
                 text,
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                      color: buttonType == ButtonType.primary
-                          ? Colors.white
-                          : Colors.black,
+                      color: buttonType == ButtonType.secondary
+                          ? Colors.black
+                          : Colors.white,
                     ),
               ),
               const SizedBox(
@@ -72,6 +83,7 @@ class CTAButton extends StatelessWidget {
 enum ButtonType {
   primary,
   secondary,
+  disable,
 }
 
 enum ButtonWidth {

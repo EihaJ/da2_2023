@@ -2,16 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../common_models/product.dart';
-import '../../../common_models/version.dart';
+import '../../../common_models/order.dart';
+import '../../../common_models/cart.dart';
+import '../../../common_models/user.dart';
+
 import '../../../common_widgets/cta_button.dart';
 import '../../../common_widgets/adjust_quantity.dart';
-import '../../../utilities/theme.dart';
+
+import 'order_success.dart';
 import '../../shop/widgets/product_card.dart';
 import '../../cart/controllers/cart_controller.dart';
 import '../../authentication/controllers/auth_controller.dart';
-import 'package:da22023/src/common_models/cart.dart';
-import '../../../common_models/user.dart';
-import 'order_success.dart';
+import '../../../utilities/theme.dart';
 
 class CheckOutScreen extends StatefulWidget {
   final CartController cartController;
@@ -421,7 +423,19 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       height: 8,
                     ),
                     CTAButton(
-                      onPressed: () {
+                      onPressed: () async {
+                        OrderFirebase newOrder = OrderFirebase(
+                            userUID: user!.uid,
+                            userName: user!.name,
+                            userPhoneNumber: user!.phoneNumber,
+                            address: selectedAddress.toString(),
+                            cartProducts: _cart!.cartProducts,
+                            orderTime: DateTime.now(),
+                            changedTime: DateTime.now(),
+                            paymentType: paymentText.toString(),
+                            totalPrice: widget.totalPrice.toDouble(),
+                            status: 'New Order');
+                        await newOrder.create();
                         Get.dialog(OrderConfirmationPopup(
                             _cart!.cartProducts.length.toString(),
                             widget.totalPrice.toString(),

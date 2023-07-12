@@ -16,7 +16,6 @@ import '../features/cart/screens/cart.dart';
 import '../features/authentication/controllers/auth_controller.dart';
 
 class appBarCustom extends StatefulWidget implements PreferredSizeWidget {
-
   @override
   _appBarState createState() => _appBarState();
 
@@ -273,6 +272,7 @@ class CustomIconButtonRow extends StatelessWidget {
                         style: Theme.of(context).textTheme.titleSmall,
                       ),
                       onTap: () {
+                        Get.toNamed('/user_profile');
                         // Go to it Profile
                       },
                     ),

@@ -26,6 +26,9 @@ import '../features/shop/controllers/product_detail_controller.dart';
 import '../features/check_out/screens/check_out.dart';
 import '../features/cart/controllers/cart_controller.dart';
 
+import '../features/profile/screens/profile.dart';
+import '../features/profile/screens/add_addresses.dart';
+
 class AppRoutes {
   static final pages = [
     //HOMEPAGE
@@ -92,5 +95,14 @@ class AppRoutes {
     ),
 
     //CHECKOUT
+    GetPage(
+      name: '/user_profile',
+      page: () => UserProfileScreen(),
+    ),
+
+    GetPage(
+      name: '/add_addresses',
+      page: () => AddAdressesScreen(),
+    ),
   ];
 }

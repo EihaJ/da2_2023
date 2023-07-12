@@ -15,7 +15,6 @@ import '../widgets/newsletter.dart';
 import '../widgets/productshowcase.dart';
 import '../widgets/reviews.dart';
 
-import '../../../common_widgets/appbar.dart';
 import '../../cart/screens/cart.dart';
 
 class HomePage extends StatelessWidget {
@@ -60,6 +59,15 @@ class HomePage extends StatelessWidget {
                 'https://firebasestorage.googleapis.com/v0/b/da2-2023.appspot.com/o/WebAssets%2FAsset%202.png?alt=media&token=eb4e4598-6aca-480e-aa37-fe17db532a9d',
               ),
               SizedBox(height: 60),
+              Container(
+                width: double.infinity,
+                alignment: AlignmentDirectional.center,
+                child: Text(
+                  'RECOMMEND FOR YOU',
+                  style: Theme.of(context).textTheme.displayLarge,
+                ),
+              ),
+                 SizedBox(height: 10),
               ReviewSection(),
               SizedBox(height: 60),
               NewsletterSection(),

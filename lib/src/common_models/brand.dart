@@ -72,26 +72,6 @@ class BrandFirebase {
         );
   }
 
-  // static Stream<List<BrandFirebase>> getAllBrands({String? brandNameFilter}) {
-  //   final collection = FirebaseFirestore.instance.collection('brands');
-  //   final collection1 = FirebaseFirestore.instance
-  //       .collection('brands')
-  //       .where('brandName', isEqualTo: brandNameFilter);
-  //   // Apply the filter if provided
-  //   if (brandNameFilter != null && brandNameFilter.isNotEmpty) {
-  //     return collection1.snapshots().map(
-  //           (querySnapshot) => querySnapshot.docs
-  //               .map((doc) => BrandFirebase.fromSnapshot(doc.data(), doc.id))
-  //               .toList(),
-  //         );
-  //   } else {
-  //     return collection.snapshots().map(
-  //           (querySnapshot) => querySnapshot.docs
-  //               .map((doc) => BrandFirebase.fromSnapshot(doc.data(), doc.id))
-  //               .toList(),
-  //         );
-  //   }
-  // }
 
   static Future<BrandFirebase?> getBrandById(String brandId) async {
     final collection = FirebaseFirestore.instance.collection('brands');

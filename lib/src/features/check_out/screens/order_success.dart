@@ -21,9 +21,18 @@ class _OrderConfirmationPopupState extends State<OrderConfirmationPopup> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text('Order Success'),
+      title: Text(
+        'ORDER SUCCESS',
+        textAlign: TextAlign.center,
+        style: Theme.of(context)
+            .textTheme
+            .titleLarge
+            ?.copyWith(color: Colors.black),
+      ),
       content: Text(
-          '${widget.userName}, you have ordered ${widget.numberOrder} items for \$${widget.price} has been placed successful!'),
+        '${widget.userName}, you have success ordered ${widget.numberOrder} items for \$${widget.price}!',
+        style: Theme.of(context).textTheme.bodyLarge,
+      ),
       actions: [
         TextButton(
           onPressed: () async {
@@ -33,7 +42,10 @@ class _OrderConfirmationPopupState extends State<OrderConfirmationPopup> {
             await cart.update();
             Get.offAndToNamed('/');
           },
-          child: Text('Return to Homepage'),
+          child: Text(
+            'Return to Homepage',
+            style: Theme.of(context).textTheme.labelLarge,
+          ),
         ),
       ],
     );
